@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CertHub — 마이페이지(대시보드)</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="light">
+  <header class="site-header container">
+    <div class="brand">
+      <span class="brand-pin" aria-hidden="true">📍</span>
+      <span class="brand-name">CertHub</span>
+    </div>
+    <nav class="nav-actions">
+      <a class="btn ghost" href="home.html">홈</a>
+      <button class="btn ghost" id="toggleTheme">🌓 Dark mode</button>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="grid grid-4 gap-24">
+      <div class="col-span-3 stack gap-24">
+        <div class="card p-24">
+          <div class="row-between">
+            <div class="row">
+              <div class="avatar">👤</div>
+              <div>
+                <div class="h3">홍길동 님</div>
+                <div class="caption muted">이번 달 목표: 기출 200문제 / 모의 2회</div>
+              </div>
+            </div>
+            <div class="row">
+              <button class="btn ghost" onclick="alert('프로필 편집')">프로필 편집</button>
+              <button class="btn" onclick="alert('학습 시작')">학습 시작</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-3 gap-24">
+          <div class="card p-24">
+            <h3 class="h3">이번 주 할 일</h3>
+            <ul class="todo mt-12" id="todo-week"></ul>
+          </div>
+          <div class="card p-24">
+            <h3 class="h3">추천 경로</h3>
+            <ul class="list mt-12" id="paths-reco"></ul>
+          </div>
+          <div class="card p-24">
+            <h3 class="h3">나의 진행률</h3>
+            <div class="progress mt-12">
+              <div class="bar" style="width:66%" aria-label="이번 달 목표 달성 66%"></div>
+            </div>
+            <p class="caption muted mt-8">이번 달 목표 달성 66%</p>
+          </div>
+        </div>
+
+        <div id="certlist-reco"></div>
+        <div id="community-latest-2"></div>
+      </div>
+
+      <div class="stack gap-24">
+        <div id="calendar-2"></div>
+        <div id="bookmark-2"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer container">
+    <p class="caption muted">계정 · 알림 · 데이터 연동은 추후 설정에서 제공됩니다.</p>
+  </footer>
+
+  <script src="js/app_common.js"></script>
+  <script src="js/mypage.js"></script>
+</body>
+</html>

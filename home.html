@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CertHub — 홈(검색 중심)</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="light">
+  <header class="site-header container">
+    <div class="brand">
+      <span class="brand-pin" aria-hidden="true">📍</span>
+      <span class="brand-name">CertHub</span>
+    </div>
+    <nav class="nav-actions">
+      <a class="btn ghost" href="mypage.html">마이페이지</a>
+      <button class="btn ghost" id="toggleTheme">🌓 Dark mode</button>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>무엇을 준비하시나요?</h1>
+      <p class="muted">자격증 검색, 일정, 커뮤니티를 한 곳에서.</p>
+    </section>
+
+    <section>
+      <div class="grid grid-3 gap-24">
+        <div class="col-span-2">
+          <div class="card p-24">
+            <div id="searchbar-1" class="mb-12"></div>
+            <div id="trend-tags" class="tags"></div>
+          </div>
+        </div>
+        <div id="calendar-1"></div>
+      </div>
+
+      <section class="mt-24" id="cert-detail-section">
+        <h2 class="h2 mb-2">📘 자격증 상세 정보</h2>
+        <div class="grid grid-4 gap-24">
+          <div class="card p-24">
+            <h3 class="h3">국가 자격</h3>
+            <p class="body-2 muted mt-8">국가가 법령에 따라 시행하는 시험 등을 통해 개인이 직무 수행에 필요한 능력을 갖추었음을 인증하는 자격</p>
+            <a href="Certification type/01.html" class="link">국가 자격 보러가기</a> <!-- 국가 자격 링크 -->
+          </div>
+          <div class="card p-24">
+            <h3 class="h3">민간 자격</h3>
+            <p class="body-2 muted mt-8">국가 자격 외에 민간 기업이나 단체가 일정한 기준에 따라 개인의 능력을 인증하는 자격</p>
+            <a href="#" class="link">민간 자격 보러가기</a>
+          </div>
+          <div class="card p-24">
+            <h3 class="h3">등록 자격</h3>
+            <p class="body-2 muted mt-8">자격기본법에 따라 민간 자격을 발급하는 기관이 국가에 해당 자격을 등록한 자격</p>
+            <a href="#" class="link">등록 자격 보러가기</a>
+          </div>
+          <div class="card p-24">
+            <h3 class="h3">공인 자격</h3>
+            <p class="body-2 muted mt-8">자격기본법에 따라 민간 자격 중에서 특히 신뢰성과 공공성을 확보한 자격으로, 국가가 공인한 자격</p>
+            <a href="#" class="link">공인 자격 보러가기</a>
+          </div>
+        </div>
+      </section>
+      <section id="cert-category-results" class="mt-24">
+        <!-- API로 불러온 자격증 목록이 여기에 표시됩니다. -->
+      </section>
+
+      <div class="grid grid-3 gap-24 mt-24">
+        <div class="col-span-2 stack gap-24">
+          <div id="certlist-trending"></div>
+          <div id="community-latest-1"></div>
+        </div>
+        <div class="card p-24">
+          <h3 class="h3">활용 분야 둘러보기</h3>
+          <div class="chip-grid mt-12" id="fields-browse"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer container">
+    <p class="caption muted">© CertHub</p>
+  </footer>
+
+  <script src="js/app_common.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>
