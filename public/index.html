@@ -1,89 +1,123 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+<html lang="ko">
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/12.6.0/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/12.6.0/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/12.6.0/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/12.6.0/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/12.6.0/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/12.6.0/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/12.6.0/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/12.6.0/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/12.6.0/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/12.6.0/firebase-performance-compat.js"></script>
-    <!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자격증 검색</title>
+    <link rel="stylesheet" href="css/style_01.css">
+</head>
 
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
-    </style>
-  </head>
-  <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
-    </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
+<body class="light"> <!-- 기본값이 라이트 모드 -->
+    <!-- =================================== header =================================== -->
+    <header class="site-header container">
+        <div class="brand">
+            <span class="brand-pin" aria-hidden="true">📍</span>
+            <span class="brand-name">CertHub</span>
+        </div>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const loadEl = document.querySelector('#load');
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.firestore().doc('/foo/bar').get().then(() => { });
-        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+        <!-- =================================== nav  =================================== -->
+        <nav class="nav-actions">
+            <a class="btn ghost" href="mypage.html">마이페이지</a>
+            <button class="btn ghost" id="toggleTheme">🌓 Dark mode</button>
+        </nav>
+    </header>
 
-        try {
-          let app = firebase.app();
-          let features = [
-            'auth', 
-            'database', 
-            'firestore',
-            'functions',
-            'messaging', 
-            'storage', 
-            'analytics', 
-            'remoteConfig',
-            'performance',
-          ].filter(feature => typeof app[feature] === 'function');
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
-        }
-      });
-    </script>
-  </body>
+    <!-- =================================== section  =================================== -->
+    <section>
+        <main class="container">
+            <!----------------- (1) 🔍 자격증 검색 ----------------->
+            <section class="hero">
+                <h1>무엇을 준비하시나요?</h1>
+                <p class="muted">자격증 검색, 일정, 커뮤니티를 한 곳에서.</p>
+            </section>
+            <!-- 검색 영역과 시험 일정 영역 -->
+            <div class="search-calendar-wrapper">
+                <!-- 검색 영역 -->           
+                <div class="search-div">
+                    <!-- 검색 영역의 검색창 부분 -->
+                    <div class="search-box search-top">
+                        <div class="search-input-wrap">
+                            <span class="search-input-icon">🔍</span>
+                            <input id="searchInput" class="search-input" type="text"
+                                placeholder="자격증을 검색해보세요 (예: 정보처리기사)" />
+                        </div>
+                        <button id="searchButton" class="search-btn">검색</button>
+                    </div>
+                    <!-- 검색 영역 검색 결과 부분 -->
+                    <div id="scrollContainer" class="search-bottom">
+                        <div id="results"></div>
+                    </div>
+                </div>
+
+                <!----------------- (2) 📅 시험일정 -------------------------------->
+                <div id="calendar-section" class="data-section">
+                    <h2 class="h2">📅 시험 일정</h2>
+                    <div id="calendar-1"></div>
+                </div>
+            </div>
+
+
+            <!----------------- (3) 📘 자격증 상세 정보 → 클릭하면 상세보기 데이터 들어가는 영역 ----------------->
+            <div id="cert-detail-section" class="data-section">
+                <h2 class="h2">📘 자격증 상세 정보</h2>
+                <div class="cert-type">
+                    <div class="card p-24">
+                        <h3 class="h3">국가 자격</h3>
+                        <p class="body-2 muted mt-8">국가가 법령에 따라 시행하는 시험 등을 통해 개인이 직무 수행에 필요한 능력을 갖추었음을 인증하는 자격</p>
+                        <a href="Certification_type/01.html" class="link">국가 자격 보러가기</a>
+                    </div>
+                    <div class="card p-24">
+                        <h3 class="h3">민간 자격</h3>
+                        <p class="body-2 muted mt-8">국가 자격 외에 민간 기업이나 단체가 일정한 기준에 따라 개인의 능력을 인증하는 자격</p>
+                        <a href="Certification_type/02.html" class="link">민간 자격 보러가기</a>
+                    </div>
+                    <div class="card p-24">
+                        <h3 class="h3">등록 자격</h3>
+                        <p class="body-2 muted mt-8">자격기본법에 따라 민간 자격을 발급하는 기관이 국가에 해당 자격을 등록한 자격</p>
+                        <a href="Certification_type/03.html" class="link">등록 자격 보러가기</a>
+                    </div>
+                    <div class="card p-24">
+                        <h3 class="h3">공인 자격</h3>
+                        <p class="body-2 muted mt-8">자격기본법에 따라 민간 자격 중에서 특히 신뢰성과 공공성을 확보한 자격으로, 국가가 공인한 자격</p>
+                        <a href="Certification_type/03.html" class="link">공인 자격 보러가기</a>
+                    </div>
+                </div>
+            </div>
+
+            <!----------------- (4) 📈 지금 뜨는 자격증 ----------------->
+            <div id="trending-certs-section" class="data-section">
+                <h2 class="h2">📈 지금 뜨는 자격증</h2>
+                <div id="certlist-trending">
+                    <!-- 🔹 DATA.certsTrending 데이터 삽입 -->
+                </div>
+            </div>
+
+            <!----------------- (5) 🗣 최신 커뮤니티(추후 개발 예정) ----------------->
+            <div id="community-section" class="data-section">
+                <h2 class="h2">🗣 최신 커뮤니티 글</h2>
+                <div id="community-latest-1">
+                    <!-- 🔹 최신 글 / 게시물 리스트 삽입 -->
+                </div>
+            </div>
+
+            <!----------------- (6) 🧭 활용 분야 ----------------->
+            <div id="fields-section" class="data-section">
+                <h2 class="h2">🧭 활용 분야 둘러보기</h2>
+                <div id="fields-browse">
+                    <!-- 🔹 분야 데이터 삽입 -->
+                </div>
+            </div>
+
+            <script type="module" src="js/main.js"></script>
+            <script src="js/theme.js"></script>
+        </main>
+    </section>
+
+    <!-- =================================== footer =================================== -->
+    <footer class="site-footer container">
+        <p class="caption muted">© CertHub</p>
+    </footer>
+</body>
+
 </html>
