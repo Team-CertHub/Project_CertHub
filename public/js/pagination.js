@@ -1,6 +1,6 @@
 // js/pagination.js
 
-import { renderListItem } from "./js/render.js";
+import { renderListItem } from "./render.js";
 
 let allItems = [];
 let currentIndex = 0;
