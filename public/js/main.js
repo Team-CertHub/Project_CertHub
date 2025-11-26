@@ -3,7 +3,7 @@
 import { fetchCertificates, getItemsFromXML } from "./api.js";
 import { handleAutocomplete } from "./autocomplete.js";
 import { searchCertificate } from "./search.js";
-import { setAllItems, loadMoreItems, handleDivScroll } from "../pagination.js";
+import { setAllItems,  loadMoreItems, handleDivScroll, } from "./pagination.js";
 
 document.addEventListener("DOMContentLoaded", initPage);
 
