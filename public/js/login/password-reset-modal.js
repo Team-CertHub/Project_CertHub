@@ -66,21 +66,22 @@
             </div>
           </div>
 
-          <!-- Step 3: 임시 비밀번호 발급 -->
+          <!-- Step 3: 비밀번호 발급 완료 -->
           <div class="reset-step" id="resetStep3">
-            <h3 class="reset-step-title">임시 비밀번호 발급 완료</h3>
-            <p class="reset-step-desc">임시 비밀번호가 이메일로 발송되었습니다.</p>
+            <h3 class="reset-step-title">비밀번호 발송 완료</h3>
+            <p class="reset-step-desc">고객님의 비밀번호와 재설정 링크가 이메일로 발송되었습니다.</p>
             
             <div class="reset-success-message show">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
-              <span>임시 비밀번호가 <strong id="finalEmailAddress"></strong>로 발송되었습니다.</span>
+              <span>비밀번호 정보가 <strong id="finalEmailAddress"></strong>로 발송되었습니다.</span>
             </div>
             
             <p class="reset-step-desc" style="margin-top: 20px;">
-              이메일을 확인하신 후 임시 비밀번호로 로그인해주세요.<br>
-              로그인 후 마이페이지에서 비밀번호를 변경하실 수 있습니다.
+              이메일을 확인하신 후 비밀번호로 로그인해주세요.<br>
+              <strong>보안을 위해 이메일에 포함된 재설정 링크를 통해 비밀번호를 변경하시기 바랍니다.</strong><br>
+              <small style="color: var(--muted);">※ 재설정 링크는 24시간 동안 유효합니다.</small>
             </p>
           </div>
         </div>
@@ -280,6 +281,22 @@
       
       if (!validateEmail(email)) {
         showError(resetEmailError, '올바른 이메일 형식이 아닙니다.');
+        resetEmail.classList.add('error');
+        return;
+      }
+      
+      // TODO: 실제 DB 연결 시 아래 로직으로 교체
+      // Mock 데이터베이스 (테스트용) - login.js와 동일한 사용자
+      const mockUsers = [
+        { email: 'test@example.com', password: 'test1234' },
+        { email: 'user@certhub.com', password: 'certhub123' }
+      ];
+      
+      // 이메일이 등록되어 있는지 확인
+      const userExists = mockUsers.find(user => user.email === email);
+      
+      if (!userExists) {
+        showError(resetEmailError, '등록되지 않은 이메일입니다. 이메일을 다시 확인해주세요.');
         resetEmail.classList.add('error');
         return;
       }
