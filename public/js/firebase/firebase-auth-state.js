@@ -32,21 +32,3 @@ onAuthStateChanged(auth, (user) => {
     }
   }
 });
-
-// 버튼 클릭 이동 처리는 따로 공통으로 넣어도 됨
-document.addEventListener("DOMContentLoaded", () => {
-  const loginBtn = document.getElementById("header-login-btn");
-  const mypageBtn = document.getElementById("header-mypage-btn");
-
-  if (loginBtn) {
-    loginBtn.addEventListener("click", () => {
-      window.location.href = "/login.html";
-    });
-  }
-
-  if (mypageBtn) {
-    mypageBtn.addEventListener("click", () => {
-      window.location.href = "/mypage.html";
-    });
-  }
-});
