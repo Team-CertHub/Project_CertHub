@@ -19,9 +19,15 @@ async function initPage() {
     const resultsDiv = document.getElementById("results");
     resultsDiv.innerHTML = "전체 자격증 불러오는 중...";
 
+    const resultsDiv_calendar = document.getElementById("results_calendar");
+    resultsDiv_calendar.innerHTML = "시험 일정 불러오는 중...";
+
     const xmlDoc = await fetchCertificates("");
     let items = getItemsFromXML(xmlDoc);
 
+    resultsDiv.innerHTML = "";
+    resultsDiv_calendar.innerHTML = "";
+    
     // 전체 랜덤 섞기
     items = items
         .map((value) => ({ value, sort: Math.random() }))

@@ -60,16 +60,16 @@ export function renderScheduleList(items, container) {
         return new Date(y, m, d);
     }
 
-    // 🔥 docRegStartDt (원서 접수 시작일)이 오늘보다 이전인 일정 제외!
+    // 🔥 docRegendDt (원서 접수 종료일)이 오늘보다 이전인 일정 제외!
     const upcomingItems = items.filter(item => {
-        const start = item.getElementsByTagName("docRegStartDt")[0]?.textContent || "-";
-        const startDate = toDate(start);
+        const end = item.getElementsByTagName("docRegEndDt")[0]?.textContent || "-";
+        const endDate = toDate(end);
 
         // 날짜가 없으면 표시하지 않음
-        if (!startDate) return false;
+        if (!endDate) return false;
 
         // 오늘 이전이면 제외
-        return startDate >= today;
+        return endDate >= today;
     });
 
     if (!upcomingItems.length) {
