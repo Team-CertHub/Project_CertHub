@@ -145,7 +145,7 @@ window.renderBookmarks = function(containerId) {
     }
 
     // 자격증 목록 표시
-    sortedCerts.forEach((cert, index) => {
+    sortedCerts.forEach((cert) => {
       const row = createEl("div", { class: "bookmark-item" }, [
         createEl("div", { class: "bookmark-content" }, [
           createEl("div", { class: "bookmark-name" }, [cert.name])
@@ -158,8 +158,12 @@ window.renderBookmarks = function(containerId) {
           createEl("button", { 
             class: "btn-bookmark-delete",
             onclick: () => {
-              bookmarkedCerts.splice(index, 1);
-              rerender();
+              // ID로 원본 배열에서 찾아서 삭제
+              const originalIndex = bookmarkedCerts.findIndex(c => c.id === cert.id);
+              if (originalIndex !== -1) {
+                bookmarkedCerts.splice(originalIndex, 1);
+                rerender();
+              }
             }
           }, ["삭제"])
         ])
