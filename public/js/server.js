@@ -12,7 +12,7 @@ app.use(cors());
 // =============================================== 자격증 목록 ===============================================
 app.get('/api/cert', async (req, res) => {
   const certName = req.query.name || '';
-  const serviceKey = 'd969c53a49d2b0f858f6a0298c6c52f20a398a12a952185694f67b019f0aa72e';
+  const serviceKey = '6392230c571116074d2e799a1309a9e8ac656fc32deebd7be9f12b12328518fd';
 
   // Q-Net 공공데이터 API 원본 URL
   const baseUrl = 'http://openapi.q-net.or.kr/api/service/rest/InquiryListNationalQualifcationSVC/getList';
@@ -51,7 +51,7 @@ app.get('/api/cert/detail', async (req, res) => {
   const jmCd = req.query.jmcd;
   if (!jmCd) return res.status(400).send("jmcd parameter is required.");
 
-  const serviceKey = 'd969c53a49d2b0f858f6a0298c6c52f20a398a12a952185694f67b019f0aa72e';
+  const serviceKey = '6392230c571116074d2e799a1309a9e8ac656fc32deebd7be9f12b12328518fd';
 
   const baseUrl = 'http://openapi.q-net.or.kr/api/service/rest/InquiryInformationTradeNTQSVC/getList';
 
@@ -73,4 +73,41 @@ app.get('/api/cert/detail', async (req, res) => {
   }
 });
 
+
+// =============================================== 시험 일정 API ===============================================
+app.get('/api/schedule', async (req, res) => {
+  const jmCd = req.query.jmcd;   // 종목코드
+  const year = req.query.implYy;   // 연도 (옵션)
+
+  if (!jmCd) return res.status(400).send("jmcd parameter is required.");
+
+    // ⭐ year가 비어있다면 올해 기준 (예: new Date().getFullYear())
+  if (!year || year.trim() === "") {
+    year = String(new Date().getFullYear());
+  }
+  const serviceKey = '6392230c571116074d2e799a1309a9e8ac656fc32deebd7be9f12b12328518fd';
+
+  const baseUrl =
+    'https://apis.data.go.kr/B490007/qualExamSchd/getQualExamSchdList';
+
+  let query =
+    `?serviceKey=${encodeURIComponent(serviceKey)}` +
+    `&dataFormat=xml` +                     // ✔ 반드시 포함
+    `&jmCd=${encodeURIComponent(jmCd)}` +   // ✔ 필수
+    `&implYy=${encodeURIComponent(year)}` + // ✔ 필수
+    `&pageNo=1&numOfRows=10`; 
+
+  const url = baseUrl + query;
+
+  try {
+    const response = await fetch(url);
+    const xmlText = await response.text();
+
+    res.set('Content-Type', 'application/xml; charset=utf-8');
+    res.send(xmlText);
+  } catch (error) {
+    console.error("시험 일정 조회 오류:", error);
+    res.status(500).send("서버 오류: " + error.message);
+  }
+});
 
