@@ -14,6 +14,7 @@ window.showTodoManagerModal = function() {
     isEditMode = !isEditMode;
     renderTodoList();
     editBtn.textContent = isEditMode ? "완료" : "수정";
+    addBtn.style.display = isEditMode ? "inline-flex" : "none";
   };
 
   const changeSortMode = () => {
@@ -134,7 +135,12 @@ window.showTodoManagerModal = function() {
     
     if (currentTodos.length === 0) {
       const emptyState = createEl("div", { class: "todo-empty" }, [
-        createEl("div", { class: "todo-empty-text" }, ["할 일이 없습니다."])
+        createEl("div", { class: "todo-empty-text" }, ["할 일이 없습니다. 추가해보세요!"]),
+        createEl("button", {
+          class: "btn",
+          style: "margin-top: 16px;",
+          onClick: addTodo
+        }, ["+ 할 일 추가하기"])
       ]);
       todoListContainer.appendChild(emptyState);
       return;
@@ -253,7 +259,8 @@ window.showTodoManagerModal = function() {
   const addBtn = createEl("button", {
     class: "btn",
     type: "button",
-    onClick: addTodo
+    onClick: addTodo,
+    style: "display: none;"
   }, ["+ 할 일 추가"]);
 
   const sortBtn = createEl("button", {
