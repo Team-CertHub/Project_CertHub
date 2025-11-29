@@ -47,12 +47,45 @@ export function renderListItem(item, container) {
 export function renderScheduleList(items, container) {
     container.innerHTML = ""; // 기존 내용 삭제
 
-    if (!items.length) {
+    // 🔥 오늘 날짜 (00:00 기준)
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // 🔥 YYYYMMDD → Date 객체 변환 함수
+    function toDate(yyyymmdd) {
+        if (!yyyymmdd || yyyymmdd === "-") return null;
+        const y = Number(yyyymmdd.substring(0, 4));
+        const m = Number(yyyymmdd.substring(4, 6)) - 1;
+        const d = Number(yyyymmdd.substring(6, 8));
+        return new Date(y, m, d);
+    }
+
+    // 🔥 docRegStartDt (원서 접수 시작일)이 오늘보다 이전인 일정 제외!
+    const upcomingItems = items.filter(item => {
+        const start = item.getElementsByTagName("docRegStartDt")[0]?.textContent || "-";
+        const startDate = toDate(start);
+
+        // 날짜가 없으면 표시하지 않음
+        if (!startDate) return false;
+
+        // 오늘 이전이면 제외
+        return startDate >= today;
+    });
+
+    if (!upcomingItems.length) {
         container.innerHTML += "<p>등록된 시험 일정이 없습니다.</p>";
         return;
     }
 
-    items.forEach(item => {
+    // 🔥 날짜 빠른 순 정렬 (원서접수 시작일 기준)
+    upcomingItems.sort((a, b) => {
+        const aStart = toDate(a.getElementsByTagName("docRegStartDt")[0]?.textContent);
+        const bStart = toDate(b.getElementsByTagName("docRegStartDt")[0]?.textContent);
+        return aStart - bStart;
+    });
+
+    // 🔥 필터 + 정렬된 일정 출력
+    upcomingItems.forEach(item => {
         const implYy = item.getElementsByTagName("implYy")[0]?.textContent || "";
         const implSeq = item.getElementsByTagName("implSeq")[0]?.textContent || "";
         const description = item.getElementsByTagName("description")[0]?.textContent || "설명 없음";
@@ -83,3 +116,4 @@ export function renderScheduleList(items, container) {
         container.appendChild(div);
     });
 }
+
