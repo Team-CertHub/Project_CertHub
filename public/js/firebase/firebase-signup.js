@@ -1,5 +1,5 @@
 // public/js/login/signup.js
-import { auth, db } from "../firebase-config.js";
+import { auth, db } from "./firebase-config.js";
 import {
   createUserWithEmailAndPassword,
 } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // 2) Firestore users 컬렉션에 프로필 문서 생성
       // users 컬렉션 구조:
       //  - 문서 ID: uid
-      //  - 필드: uid, name, email, image(null), createdAt, updatedAt
+      //  - 필드: name, email, image(null), createdAt, updatedAt
       await setDoc(doc(db, "users", user.uid), {
         name: name,
         email: email,
