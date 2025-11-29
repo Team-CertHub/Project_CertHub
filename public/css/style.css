@@ -161,16 +161,6 @@ h1 { font-size: 28px; margin: 0 0 4px; }
 .item-title { font-weight: 600; }
 .item-sub { color: var(--muted); font-size: 12px; }
 
-/* item 에 마우스 올릴 시 글자 살짝 커지게*/
-.card-list .item .item-title {
-  transition: transform 0.2s ease-in-out;
-}
-.card-list .item:hover .item-title {
-  transform: scale(1.05);
-}
-
-.rating { display: inline-flex; align-items: center; gap: 6px; color: gold; }
-
 .chip-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px; }
 .chip { border:1px solid var(--border); border-radius: 10px; padding:10px 12px; background: var(--panel); cursor: pointer; text-align: left; }
 .chip:hover { outline: 2px solid var(--ring); }

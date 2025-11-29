@@ -130,20 +130,36 @@
 }
 
 .cert-bookmark-item {
-  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 16px;
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: 8px;
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--fg);
-  cursor: pointer;
-  transition: 0.2s ease;
 }
 
-.cert-bookmark-item:hover {
-  background: var(--overlay);
-  border-color: var(--primary);
+.cert-bookmark-item .cert-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--fg);
+}
+
+.cert-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+}
+
+.cert-info-row .cert-exam-date {
+  color: var(--muted);
+  display: inline;
+}
+
+.cert-info-row .cert-dday {
+  font-weight: 600;
+  color: var(--primary);
 }
 
 /* D-day 상세 헤더와 뒤로 버튼 */

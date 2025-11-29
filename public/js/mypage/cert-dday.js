@@ -32,78 +32,33 @@ window.renderCertDday = function() {
   const container = document.getElementById("certDdayContent");
   if (!container) return;
   
-  // 북마크 목록 표시
-  if (!selectedCert) {
-    container.innerHTML = `
-      <div class="row-between mb-12">
-        <h3 class="h3">디데이</h3>
-      </div>
-      <ul class="cert-bookmark-list" id="certBookmarkList"></ul>
-    `;
-    
-    const listContainer = document.getElementById("certBookmarkList");
-    if (listContainer) {
-      mockBookmarks.forEach(cert => {
-        const li = document.createElement("li");
-        li.className = "cert-bookmark-item";
-        li.textContent = cert.name;
-        li.addEventListener("click", () => {
-          selectedCert = cert;
-          window.renderCertDday();
-        });
-        listContainer.appendChild(li);
-      });
-    }
-    return;
-  }
-  
-  // D-day 상세 화면
-  const dday = calculateDday(selectedCert.examDate);
-  const ddayText = dday === 0 ? "D-Day" : dday > 0 ? `D-${dday}` : `D+${Math.abs(dday)}`;
-  
+  // 북마크 목록 표시 (클릭 불가능)
   container.innerHTML = `
-    <div class="cert-detail-back">
-      <button class="btn-back" id="btnBack">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <polyline points="15 18 9 12 15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
+    <div class="row-between mb-12">
+      <h3 class="h3">디데이</h3>
     </div>
-    <h3 class="cert-name">${selectedCert.name}</h3>
-    <div class="cert-exam-date">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <line x1="3" y1="10" x2="21" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <span>${selectedCert.examDate}</span>
-    </div>
-    <div class="cert-dday-display">
-      ${ddayText}
-    </div>
-    <button class="btn-cert-detail" id="certDetailBtn">
-      <span>자세히 보기</span>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <polyline points="9 18 15 12 9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </button>
+    <ul class="cert-bookmark-list" id="certBookmarkList"></ul>
   `;
   
-  // 뒤로 버튼 이벤트
-  const backBtn = document.getElementById("btnBack");
-  if (backBtn) {
-    backBtn.addEventListener("click", () => {
-      selectedCert = null;
-      window.renderCertDday();
-    });
-  }
-  
-  // 자세히 보기 버튼 이벤트
-  const detailBtn = document.getElementById("certDetailBtn");
-  if (detailBtn) {
-    detailBtn.addEventListener("click", () => {
-      showModal("자격증 정보", `${selectedCert.name}에 대한 상세 정보는 준비 중입니다.`);
+  const listContainer = document.getElementById("certBookmarkList");
+  if (listContainer) {
+    // ㄱㄴㄷ 순으로 정렬
+    const sortedBookmarks = [...mockBookmarks].sort((a, b) => a.name.localeCompare(b.name, 'ko'));
+    
+    sortedBookmarks.forEach(cert => {
+      const dday = calculateDday(cert.examDate);
+      const ddayText = dday === 0 ? "D-Day" : dday > 0 ? `D-${dday}` : `D+${Math.abs(dday)}`;
+      
+      const li = document.createElement("li");
+      li.className = "cert-bookmark-item";
+      li.innerHTML = `
+        <span class="cert-name">${cert.name}</span>
+        <div class="cert-info-row">
+          <span class="cert-exam-date">${cert.examDate}</span>
+          <span class="cert-dday">${ddayText}</span>
+        </div>
+      `;
+      listContainer.appendChild(li);
     });
   }
 };

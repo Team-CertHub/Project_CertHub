@@ -203,29 +203,37 @@ emailInput.addEventListener('focus', () => {
 
 // ============ Password Toggle ============
 
-togglePasswordBtn.addEventListener('mousedown', () => {
-  passwordInput.type = 'text';
-});
+function setupPasswordToggle(toggleBtn, inputField) {
+  if (!toggleBtn || !inputField) return;
 
-togglePasswordBtn.addEventListener('mouseup', () => {
-  passwordInput.type = 'password';
-});
+  const eyeClosed = toggleBtn.querySelector('.eye-closed');
+  const eyeOpen = toggleBtn.querySelector('.eye-open');
 
-togglePasswordBtn.addEventListener('mouseleave', () => {
-  passwordInput.type = 'password';
-});
+  function showPassword() {
+    inputField.type = 'text';
+    if (eyeClosed) eyeClosed.style.display = 'none';
+    if (eyeOpen) eyeOpen.style.display = 'block';
+  }
 
-togglePasswordConfirmBtn.addEventListener('mousedown', () => {
-  passwordConfirmInput.type = 'text';
-});
+  function hidePassword() {
+    inputField.type = 'password';
+    if (eyeClosed) eyeClosed.style.display = 'block';
+    if (eyeOpen) eyeOpen.style.display = 'none';
+  }
 
-togglePasswordConfirmBtn.addEventListener('mouseup', () => {
-  passwordConfirmInput.type = 'password';
-});
+  toggleBtn.addEventListener('mousedown', showPassword);
+  toggleBtn.addEventListener('mouseup', hidePassword);
+  toggleBtn.addEventListener('mouseleave', hidePassword);
+  toggleBtn.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    showPassword();
+  });
+  toggleBtn.addEventListener('touchend', hidePassword);
+}
 
-togglePasswordConfirmBtn.addEventListener('mouseleave', () => {
-  passwordConfirmInput.type = 'password';
-});
+setupPasswordToggle(togglePasswordBtn, passwordInput);
+setupPasswordToggle(togglePasswordConfirmBtn, passwordConfirmInput);
+
 
 // ============ Validation Functions ============
 
