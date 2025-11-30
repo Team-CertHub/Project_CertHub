@@ -1,0 +1,740 @@
+{
+  "users": [
+    {
+      "uid": "user001",
+      "name": "사용자1",
+      "createdAt": "2025-11-01T14:00:00Z"
+    },
+    {
+      "uid": "user002",
+      "name": "사용자2",
+      "createdAt": "2025-11-01T19:00:00Z"
+    },
+    {
+      "uid": "user003",
+      "name": "사용자3",
+      "createdAt": "2025-11-02T00:00:00Z"
+    },
+    {
+      "uid": "user004",
+      "name": "사용자4",
+      "createdAt": "2025-11-02T05:00:00Z"
+    },
+    {
+      "uid": "user005",
+      "name": "사용자5",
+      "createdAt": "2025-11-02T10:00:00Z"
+    },
+    {
+      "uid": "user006",
+      "name": "사용자6",
+      "createdAt": "2025-11-02T15:00:00Z"
+    },
+    {
+      "uid": "user007",
+      "name": "사용자7",
+      "createdAt": "2025-11-02T20:00:00Z"
+    },
+    {
+      "uid": "user008",
+      "name": "사용자8",
+      "createdAt": "2025-11-03T01:00:00Z"
+    },
+    {
+      "uid": "user009",
+      "name": "사용자9",
+      "createdAt": "2025-11-03T06:00:00Z"
+    },
+    {
+      "uid": "user010",
+      "name": "사용자10",
+      "createdAt": "2025-11-03T11:00:00Z"
+    }
+  ],
+  "bookmarks": [
+    {
+      "bookmarkId": "bm0001",
+      "uid": "user004",
+      "certId": "PVT-2025-004",
+      "createdAt": "2025-11-01T12:00:00Z"
+    },
+    {
+      "bookmarkId": "bm0002",
+      "uid": "user009",
+      "certId": "PVT-2025-009",
+      "createdAt": "2025-11-01T15:00:00Z"
+    },
+    {
+      "bookmarkId": "bm0003",
+      "uid": "user002",
+      "certId": "JMCD_1006",
+      "createdAt": "2025-11-01T18:00:00Z"
+    },
+    {
+      "bookmarkId": "bm0004",
+      "uid": "user008",
+      "certId": "PVT-2025-003",
+      "createdAt": "2025-11-01T21:00:00Z"
+    },
+    {
+      "bookmarkId": "bm0005",
+      "uid": "user006",
+      "certId": "JMCD_1001",
+      "createdAt": "2025-11-02T00:00:00Z"
+    },
+    {
+      "bookmarkId": "bm0006",
+      "uid": "user007",
+      "certId": "JMCD_1007",
+      "createdAt": "2025-11-02T03:00:00Z"
+    },
+    {
+      "bookmarkId": "bm0007",
+      "uid": "user008",
+      "certId": "PVT-2025-002",
+      "createdAt": "2025-11-02T06:00:00Z"
+    },
+    {
+      "bookmarkId": "bm0008",
+      "uid": "user002",
+      "certId": "JMCD_1002",
+      "createdAt": "2025-11-02T09:00:00Z"
+    },
+    {
+      "bookmarkId": "bm0009",
+      "uid": "user001",
+      "certId": "PVT-2025-001",
+      "createdAt": "2025-11-02T12:00:00Z"
+    },
+    {
+      "bookmarkId": "bm0010",
+      "uid": "user010",
+      "certId": "JMCD_1004",
+      "createdAt": "2025-11-02T15:00:00Z"
+    },
+    {
+      "bookmarkId": "bm0011",
+      "uid": "user004",
+      "certId": "PVT-2025-005",
+      "createdAt": "2025-11-02T18:00:00Z"
+    },
+    {
+      "bookmarkId": "bm0012",
+      "uid": "user009",
+      "certId": "JMCD_1003",
+      "createdAt": "2025-11-02T21:00:00Z"
+    },
+    {
+      "bookmarkId": "bm0013",
+      "uid": "user008",
+      "certId": "JMCD_1000",
+      "createdAt": "2025-11-03T00:00:00Z"
+    },
+    {
+      "bookmarkId": "bm0014",
+      "uid": "user005",
+      "certId": "PVT-2025-010",
+      "createdAt": "2025-11-03T03:00:00Z"
+    },
+    {
+      "bookmarkId": "bm0015",
+      "uid": "user006",
+      "certId": "PVT-2025-000",
+      "createdAt": "2025-11-03T06:00:00Z"
+    },
+    {
+      "bookmarkId": "bm0016",
+      "uid": "user010",
+      "certId": "JMCD_1002",
+      "createdAt": "2025-11-03T09:00:00Z"
+    },
+    {
+      "bookmarkId": "bm0017",
+      "uid": "user009",
+      "certId": "JMCD_1008",
+      "createdAt": "2025-11-03T12:00:00Z"
+    },
+    {
+      "bookmarkId": "bm0018",
+      "uid": "user001",
+      "certId": "PVT-2025-006",
+      "createdAt": "2025-11-03T15:00:00Z"
+    },
+    {
+      "bookmarkId": "bm0019",
+      "uid": "user003",
+      "certId": "JMCD_1009",
+      "createdAt": "2025-11-03T18:00:00Z"
+    },
+    {
+      "bookmarkId": "bm0020",
+      "uid": "user003",
+      "certId": "PVT-2025-007",
+      "createdAt": "2025-11-03T21:00:00Z"
+    }
+  ],
+  "todos_week": [
+    {
+      "tid": "td0001",
+      "uid": "user008",
+      "content": "요약노트 작성",
+      "status": "미완",
+      "createdAt": "2025-11-01T11:00:00Z"
+    },
+    {
+      "tid": "td0002",
+      "uid": "user008",
+      "content": "모의고사 한 회 풀기",
+      "status": "완",
+      "createdAt": "2025-11-01T13:00:00Z"
+    },
+    {
+      "tid": "td0003",
+      "uid": "user008",
+      "content": "알고리즘 문제 3문제 풀기",
+      "status": "미완",
+      "createdAt": "2025-11-01T15:00:00Z"
+    },
+    {
+      "tid": "td0004",
+      "uid": "user006",
+      "content": "실기 영상 강의 시청",
+      "status": "완",
+      "createdAt": "2025-11-01T17:00:00Z"
+    },
+    {
+      "tid": "td0005",
+      "uid": "user003",
+      "content": "스터디 모임 준비",
+      "status": "미완",
+      "createdAt": "2025-11-01T19:00:00Z"
+    },
+    {
+      "tid": "td0006",
+      "uid": "user010",
+      "content": "자격증 일정 정리하기",
+      "status": "완",
+      "createdAt": "2025-11-01T21:00:00Z"
+    },
+    {
+      "tid": "td0007",
+      "uid": "user002",
+      "content": "컴활 실기 연습",
+      "status": "미완",
+      "createdAt": "2025-11-01T23:00:00Z"
+    },
+    {
+      "tid": "td0008",
+      "uid": "user003",
+      "content": "오답노트 정리",
+      "status": "완",
+      "createdAt": "2025-11-02T01:00:00Z"
+    },
+    {
+      "tid": "td0009",
+      "uid": "user001",
+      "content": "SQLD 이론 정리",
+      "status": "미완",
+      "createdAt": "2025-11-02T03:00:00Z"
+    },
+    {
+      "tid": "td0010",
+      "uid": "user004",
+      "content": "오답 복습하기",
+      "status": "완",
+      "createdAt": "2025-11-02T05:00:00Z"
+    },
+    {
+      "tid": "td0011",
+      "uid": "user008",
+      "content": "요약노트 작성",
+      "status": "미완",
+      "createdAt": "2025-11-02T07:00:00Z"
+    },
+    {
+      "tid": "td0012",
+      "uid": "user006",
+      "content": "모의고사 한 회 풀기",
+      "status": "완",
+      "createdAt": "2025-11-02T09:00:00Z"
+    },
+    {
+      "tid": "td0013",
+      "uid": "user008",
+      "content": "알고리즘 문제 3문제 풀기",
+      "status": "미완",
+      "createdAt": "2025-11-02T11:00:00Z"
+    },
+    {
+      "tid": "td0014",
+      "uid": "user009",
+      "content": "실기 영상 강의 시청",
+      "status": "완",
+      "createdAt": "2025-11-02T13:00:00Z"
+    },
+    {
+      "tid": "td0015",
+      "uid": "user001",
+      "content": "스터디 모임 준비",
+      "status": "미완",
+      "createdAt": "2025-11-02T15:00:00Z"
+    },
+    {
+      "tid": "td0016",
+      "uid": "user002",
+      "content": "자격증 일정 정리하기",
+      "status": "완",
+      "createdAt": "2025-11-02T17:00:00Z"
+    },
+    {
+      "tid": "td0017",
+      "uid": "user008",
+      "content": "컴활 실기 연습",
+      "status": "미완",
+      "createdAt": "2025-11-02T19:00:00Z"
+    },
+    {
+      "tid": "td0018",
+      "uid": "user001",
+      "content": "오답노트 정리",
+      "status": "완",
+      "createdAt": "2025-11-02T21:00:00Z"
+    },
+    {
+      "tid": "td0019",
+      "uid": "user008",
+      "content": "SQLD 이론 정리",
+      "status": "미완",
+      "createdAt": "2025-11-02T23:00:00Z"
+    },
+    {
+      "tid": "td0020",
+      "uid": "user003",
+      "content": "오답 복습하기",
+      "status": "완",
+      "createdAt": "2025-11-03T01:00:00Z"
+    }
+  ],
+  "search_clicks": [
+    {
+      "clickId": "clk0001",
+      "uid": "user005",
+      "certId": "PVT-2025-006",
+      "context": "search",
+      "clickedAt": "2025-11-01T10:00:00Z"
+    },
+    {
+      "clickId": "clk0002",
+      "uid": "user006",
+      "certId": "JMCD_1004",
+      "context": "home_reco",
+      "clickedAt": "2025-11-01T11:00:00Z"
+    },
+    {
+      "clickId": "clk0003",
+      "uid": "user010",
+      "certId": "PVT-2025-002",
+      "context": "home_reco",
+      "clickedAt": "2025-11-01T12:00:00Z"
+    },
+    {
+      "clickId": "clk0004",
+      "uid": "user007",
+      "certId": "PVT-2025-001",
+      "context": "home_reco",
+      "clickedAt": "2025-11-01T13:00:00Z"
+    },
+    {
+      "clickId": "clk0005",
+      "uid": "user005",
+      "certId": "PVT-2025-005",
+      "context": "trending",
+      "clickedAt": "2025-11-01T14:00:00Z"
+    },
+    {
+      "clickId": "clk0006",
+      "uid": "user003",
+      "certId": "JMCD_1005",
+      "context": "home_reco",
+      "clickedAt": "2025-11-01T15:00:00Z"
+    },
+    {
+      "clickId": "clk0007",
+      "uid": "user006",
+      "certId": "JMCD_1005",
+      "context": "home_reco",
+      "clickedAt": "2025-11-01T16:00:00Z"
+    },
+    {
+      "clickId": "clk0008",
+      "uid": "user007",
+      "certId": "PVT-2025-000",
+      "context": "search",
+      "clickedAt": "2025-11-01T17:00:00Z"
+    },
+    {
+      "clickId": "clk0009",
+      "uid": "user004",
+      "certId": "PVT-2025-005",
+      "context": "trending",
+      "clickedAt": "2025-11-01T18:00:00Z"
+    },
+    {
+      "clickId": "clk0010",
+      "uid": "user004",
+      "certId": "JMCD_1001",
+      "context": "search",
+      "clickedAt": "2025-11-01T19:00:00Z"
+    },
+    {
+      "clickId": "clk0011",
+      "uid": "user001",
+      "certId": "PVT-2025-008",
+      "context": "search",
+      "clickedAt": "2025-11-01T20:00:00Z"
+    },
+    {
+      "clickId": "clk0012",
+      "uid": "user006",
+      "certId": "PVT-2025-008",
+      "context": "home_reco",
+      "clickedAt": "2025-11-01T21:00:00Z"
+    },
+    {
+      "clickId": "clk0013",
+      "uid": "user008",
+      "certId": "PVT-2025-004",
+      "context": "search",
+      "clickedAt": "2025-11-01T22:00:00Z"
+    },
+    {
+      "clickId": "clk0014",
+      "uid": "user002",
+      "certId": "PVT-2025-005",
+      "context": "trending",
+      "clickedAt": "2025-11-01T23:00:00Z"
+    },
+    {
+      "clickId": "clk0015",
+      "uid": "user008",
+      "certId": "JMCD_1001",
+      "context": "search",
+      "clickedAt": "2025-11-02T00:00:00Z"
+    },
+    {
+      "clickId": "clk0016",
+      "uid": "user008",
+      "certId": "PVT-2025-010",
+      "context": "search",
+      "clickedAt": "2025-11-02T01:00:00Z"
+    },
+    {
+      "clickId": "clk0017",
+      "uid": "user001",
+      "certId": "PVT-2025-001",
+      "context": "trending",
+      "clickedAt": "2025-11-02T02:00:00Z"
+    },
+    {
+      "clickId": "clk0018",
+      "uid": "user006",
+      "certId": "JMCD_1003",
+      "context": "search",
+      "clickedAt": "2025-11-02T03:00:00Z"
+    },
+    {
+      "clickId": "clk0019",
+      "uid": "user002",
+      "certId": "JMCD_1006",
+      "context": "home_reco",
+      "clickedAt": "2025-11-02T04:00:00Z"
+    },
+    {
+      "clickId": "clk0020",
+      "uid": "user003",
+      "certId": "PVT-2025-003",
+      "context": "search",
+      "clickedAt": "2025-11-02T05:00:00Z"
+    },
+    {
+      "clickId": "clk0021",
+      "uid": "user010",
+      "certId": "PVT-2025-000",
+      "context": "home_reco",
+      "clickedAt": "2025-11-02T06:00:00Z"
+    },
+    {
+      "clickId": "clk0022",
+      "uid": "user007",
+      "certId": "PVT-2025-010",
+      "context": "search",
+      "clickedAt": "2025-11-02T07:00:00Z"
+    },
+    {
+      "clickId": "clk0023",
+      "uid": "user001",
+      "certId": "PVT-2025-009",
+      "context": "home_reco",
+      "clickedAt": "2025-11-02T08:00:00Z"
+    },
+    {
+      "clickId": "clk0024",
+      "uid": "user004",
+      "certId": "PVT-2025-004",
+      "context": "home_reco",
+      "clickedAt": "2025-11-02T09:00:00Z"
+    },
+    {
+      "clickId": "clk0025",
+      "uid": "user006",
+      "certId": "JMCD_1010",
+      "context": "home_reco",
+      "clickedAt": "2025-11-02T10:00:00Z"
+    },
+    {
+      "clickId": "clk0026",
+      "uid": "user008",
+      "certId": "PVT-2025-010",
+      "context": "trending",
+      "clickedAt": "2025-11-02T11:00:00Z"
+    },
+    {
+      "clickId": "clk0027",
+      "uid": "user002",
+      "certId": "PVT-2025-003",
+      "context": "home_reco",
+      "clickedAt": "2025-11-02T12:00:00Z"
+    },
+    {
+      "clickId": "clk0028",
+      "uid": "user003",
+      "certId": "JMCD_1000",
+      "context": "home_reco",
+      "clickedAt": "2025-11-02T13:00:00Z"
+    },
+    {
+      "clickId": "clk0029",
+      "uid": "user001",
+      "certId": "PVT-2025-005",
+      "context": "trending",
+      "clickedAt": "2025-11-02T14:00:00Z"
+    },
+    {
+      "clickId": "clk0030",
+      "uid": "user009",
+      "certId": "PVT-2025-003",
+      "context": "home_reco",
+      "clickedAt": "2025-11-02T15:00:00Z"
+    },
+    {
+      "clickId": "clk0031",
+      "uid": "user008",
+      "certId": "PVT-2025-006",
+      "context": "trending",
+      "clickedAt": "2025-11-02T16:00:00Z"
+    },
+    {
+      "clickId": "clk0032",
+      "uid": "user001",
+      "certId": "PVT-2025-006",
+      "context": "trending",
+      "clickedAt": "2025-11-02T17:00:00Z"
+    },
+    {
+      "clickId": "clk0033",
+      "uid": "user002",
+      "certId": "JMCD_1005",
+      "context": "home_reco",
+      "clickedAt": "2025-11-02T18:00:00Z"
+    },
+    {
+      "clickId": "clk0034",
+      "uid": "user007",
+      "certId": "PVT-2025-002",
+      "context": "home_reco",
+      "clickedAt": "2025-11-02T19:00:00Z"
+    },
+    {
+      "clickId": "clk0035",
+      "uid": "user008",
+      "certId": "JMCD_1009",
+      "context": "home_reco",
+      "clickedAt": "2025-11-02T20:00:00Z"
+    },
+    {
+      "clickId": "clk0036",
+      "uid": "user003",
+      "certId": "JMCD_1003",
+      "context": "trending",
+      "clickedAt": "2025-11-02T21:00:00Z"
+    },
+    {
+      "clickId": "clk0037",
+      "uid": "user006",
+      "certId": "JMCD_1004",
+      "context": "trending",
+      "clickedAt": "2025-11-02T22:00:00Z"
+    },
+    {
+      "clickId": "clk0038",
+      "uid": "user006",
+      "certId": "PVT-2025-002",
+      "context": "trending",
+      "clickedAt": "2025-11-02T23:00:00Z"
+    },
+    {
+      "clickId": "clk0039",
+      "uid": "user005",
+      "certId": "PVT-2025-007",
+      "context": "home_reco",
+      "clickedAt": "2025-11-03T00:00:00Z"
+    },
+    {
+      "clickId": "clk0040",
+      "uid": "user001",
+      "certId": "JMCD_1007",
+      "context": "trending",
+      "clickedAt": "2025-11-03T01:00:00Z"
+    },
+    {
+      "clickId": "clk0041",
+      "uid": "user010",
+      "certId": "PVT-2025-007",
+      "context": "home_reco",
+      "clickedAt": "2025-11-03T02:00:00Z"
+    },
+    {
+      "clickId": "clk0042",
+      "uid": "user003",
+      "certId": "PVT-2025-004",
+      "context": "home_reco",
+      "clickedAt": "2025-11-03T03:00:00Z"
+    },
+    {
+      "clickId": "clk0043",
+      "uid": "user009",
+      "certId": "JMCD_1007",
+      "context": "trending",
+      "clickedAt": "2025-11-03T04:00:00Z"
+    },
+    {
+      "clickId": "clk0044",
+      "uid": "user001",
+      "certId": "JMCD_1002",
+      "context": "search",
+      "clickedAt": "2025-11-03T05:00:00Z"
+    },
+    {
+      "clickId": "clk0045",
+      "uid": "user001",
+      "certId": "PVT-2025-008",
+      "context": "search",
+      "clickedAt": "2025-11-03T06:00:00Z"
+    },
+    {
+      "clickId": "clk0046",
+      "uid": "user003",
+      "certId": "PVT-2025-002",
+      "context": "trending",
+      "clickedAt": "2025-11-03T07:00:00Z"
+    },
+    {
+      "clickId": "clk0047",
+      "uid": "user005",
+      "certId": "JMCD_1003",
+      "context": "search",
+      "clickedAt": "2025-11-03T08:00:00Z"
+    },
+    {
+      "clickId": "clk0048",
+      "uid": "user006",
+      "certId": "JMCD_1004",
+      "context": "home_reco",
+      "clickedAt": "2025-11-03T09:00:00Z"
+    },
+    {
+      "clickId": "clk0049",
+      "uid": "user001",
+      "certId": "JMCD_1004",
+      "context": "trending",
+      "clickedAt": "2025-11-03T10:00:00Z"
+    },
+    {
+      "clickId": "clk0050",
+      "uid": "user006",
+      "certId": "JMCD_1005",
+      "context": "home_reco",
+      "clickedAt": "2025-11-03T11:00:00Z"
+    },
+    {
+      "clickId": "clk0051",
+      "uid": "user010",
+      "certId": "JMCD_1006",
+      "context": "home_reco",
+      "clickedAt": "2025-11-03T12:00:00Z"
+    },
+    {
+      "clickId": "clk0052",
+      "uid": "user003",
+      "certId": "JMCD_1006",
+      "context": "home_reco",
+      "clickedAt": "2025-11-03T13:00:00Z"
+    },
+    {
+      "clickId": "clk0053",
+      "uid": "user008",
+      "certId": "JMCD_1004",
+      "context": "trending",
+      "clickedAt": "2025-11-03T14:00:00Z"
+    },
+    {
+      "clickId": "clk0054",
+      "uid": "user001",
+      "certId": "PVT-2025-007",
+      "context": "home_reco",
+      "clickedAt": "2025-11-03T15:00:00Z"
+    },
+    {
+      "clickId": "clk0055",
+      "uid": "user010",
+      "certId": "PVT-2025-004",
+      "context": "home_reco",
+      "clickedAt": "2025-11-03T16:00:00Z"
+    },
+    {
+      "clickId": "clk0056",
+      "uid": "user004",
+      "certId": "PVT-2025-001",
+      "context": "home_reco",
+      "clickedAt": "2025-11-03T17:00:00Z"
+    },
+    {
+      "clickId": "clk0057",
+      "uid": "user007",
+      "certId": "JMCD_1001",
+      "context": "search",
+      "clickedAt": "2025-11-03T18:00:00Z"
+    },
+    {
+      "clickId": "clk0058",
+      "uid": "user010",
+      "certId": "JMCD_1006",
+      "context": "search",
+      "clickedAt": "2025-11-03T19:00:00Z"
+    },
+    {
+      "clickId": "clk0059",
+      "uid": "user006",
+      "certId": "JMCD_1006",
+      "context": "home_reco",
+      "clickedAt": "2025-11-03T20:00:00Z"
+    },
+    {
+      "clickId": "clk0060",
+      "uid": "user006",
+      "certId": "JMCD_1002",
+      "context": "search",
+      "clickedAt": "2025-11-03T21:00:00Z"
+    }
+  ]
+}
