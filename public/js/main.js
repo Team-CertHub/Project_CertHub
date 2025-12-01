@@ -13,6 +13,58 @@ document.getElementById("searchInput").addEventListener("input", handleAutocompl
 document.getElementById("searchButton").addEventListener("click", searchCertificate);
 
 // ===========================================
+// 🔹 활용 분야 불러오기 (20개 추출)
+// ===========================================
+async function loadFieldsBrowse() {
+    const container = document.getElementById("fields-browse");
+    container.innerHTML = "<p>불러오는 중...</p>";
+
+    const xmlDoc = await fetchCertificates("");
+    const items = getItemsFromXML(xmlDoc);
+
+    // 필요한 데이터만 추출 (중분류와 대분류가 있는 항목만)
+    const mapped = items
+        .map(item => {
+            const middle = item.getElementsByTagName("mdobligfldnm")[0]?.textContent.trim() || null;
+            const top = item.getElementsByTagName("obligfldnm")[0]?.textContent.trim() || null;
+
+            // 중분류와 대분류가 모두 있을 때만 반환
+            if (middle && top) {
+                return {
+                    name: item.getElementsByTagName("jmfldnm")[0]?.textContent || "이름 없음",
+                    middle: middle,
+                    top: top
+                };
+            }
+            return null;  // 중분류나 대분류가 없으면 null 반환
+        })
+        .filter(item => item !== null);  // null을 필터링하여 제외
+
+    // 랜덤 20개 추출
+    const random20 = mapped
+        .map(v => ({ v, sort: Math.random() }))
+        .sort((a, b) => a.sort - b.sort)
+        .slice(0, 20)
+        .map(o => o.v);
+
+    // HTML 렌더링
+    container.innerHTML = random20
+        .map(
+            item => `
+            <div class="field-card">
+                <div class="field-card-title">${item.name}</div>
+                <div class="field-card-tags">
+                    <span>#${item.middle}</span>
+                    <span>#${item.top}</span>
+                </div>
+            </div>`
+        )
+        .join("");
+}
+
+
+
+// ===========================================
 // 🔹 페이지 초기 실행
 // ===========================================
 async function initPage() {
@@ -50,6 +102,8 @@ async function initPage() {
 
     // 🔹 "자세히" 버튼 클릭 이벤트 처리
     addDetailButtonClickListeners();
+
+    await loadFieldsBrowse();
 }
 
 // ===========================================

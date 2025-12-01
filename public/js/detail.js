@@ -65,55 +65,56 @@ export async function loadDetailInfo(jmcd) {
     modalBody.innerHTML = "불러오는 중...";
 
     try {
-        // 자격증 상세 정보를 가져오기 위한 API 호출
-        const response = await fetch(`/api/cert/detail?jmcd=${jmcd}`);
-        const xmlText = await response.text();
+        // ---------------------------------------------
+        // 1) 상세조회 API 요청
+        // ---------------------------------------------
+        const detailResponse = await fetch(`/api/cert/detail?jmcd=${jmcd}`);
+        const detailXmlText = await detailResponse.text();
+        console.log("자격증 상세 정보 응답:", detailXmlText);
 
-        // API 응답 확인 - 자격증 상세 정보 응답 출력
-        console.log("자격증 상세 정보 응답:", xmlText);
+        const detailXml = new DOMParser().parseFromString(detailXmlText, "text/xml");
+        const detailItems = Array.from(detailXml.getElementsByTagName("item"));
 
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(xmlText, "text/xml");
-
-        const items = Array.from(xmlDoc.getElementsByTagName("item"));
-        if (items.length === 0) {
-            modalBody.innerHTML = "<p>상세정보 없음</p>";
-            return;
+        // 취득방법 추출
+        let acquireInfo = "";
+        if (detailItems.length > 0) {
+            detailItems.forEach(item => {
+                const type = item.getElementsByTagName("infogb")[0]?.textContent.trim();
+                const content = item.getElementsByTagName("contents")[0]?.textContent.trim();
+                
+                if (type === "취득방법" && content) {
+                    acquireInfo = cleanQnetContent(content);
+                }
+            });
         }
 
-        // 취득방법만 처리
-        let acquireInfo = "";
-        items.forEach(item => {
-            const type = item.getElementsByTagName("infogb")[0]?.textContent.trim();
-            const content = item.getElementsByTagName("contents")[0]?.textContent.trim();
-            if (!type || !content) return;
+        // ---------------------------------------------
+        // 2) 추천 자격증 API 요청
+        // ---------------------------------------------
+        const relatedResponse = await fetch(`/api/attendqual?jmcd=${jmcd}`);
+        const relatedXmlText = await relatedResponse.text();
+        console.log("추천 자격증 응답:", relatedXmlText);
 
-            if (type === "취득방법") {
-                acquireInfo = cleanQnetContent(content); // cleanQnetContent: 이전에 제공한 HTML 정리 함수
-            }
-        });
+        const relatedXml = new DOMParser().parseFromString(relatedXmlText, "text/xml");
+        const relatedItems = Array.from(relatedXml.getElementsByTagName("item"));
 
-        // 관련 자격증 정보 가져오기 (추천 자격증 2개)
-        const relatedCertResponse = await fetch(`/api/attendqual?jmcd=${jmcd}`);
-        const relatedCertXmlText = await relatedCertResponse.text();
+        let recomJmNm1 = "추천자격명 없음";
+        let recomJmNm2 = "추천자격명 없음";
 
-        // API 응답 확인 - 추천 자격증 응답 출력
-        console.log("추천 자격증 응답:", relatedCertXmlText);
+        if (relatedItems.length > 0) {
+            const first = relatedItems[0];
+            recomJmNm1 = first.getElementsByTagName("recomJmNm1")[0]?.textContent || "추천자격명 없음";
+            recomJmNm2 = first.getElementsByTagName("recomJmNm2")[0]?.textContent || "추천자격명 없음";
+        }
 
-        const relatedCertXmlDoc = new DOMParser().parseFromString(relatedCertXmlText, "text/xml");
-
-        const relatedCertItems = Array.from(relatedCertXmlDoc.getElementsByTagName("item"));
-        console.log("추천 자격증 목록:", relatedCertItems);  // 추천 자격증 리스트 확인
-
-        // 추천 자격증 2개 추출
-        const recomJmNm1 = relatedCertItems.length > 0 ? relatedCertItems[0].getElementsByTagName("recomJmNm1")[0]?.textContent || "추천자격명 없음" : "추천자격명 없음";
-        const recomJmNm2 = relatedCertItems.length > 1 ? relatedCertItems[1].getElementsByTagName("recomJmNm2")[0]?.textContent || "추천자격명 없음" : "추천자격명 없음";
-
-        // 모달 내용 업데이트
+        // ---------------------------------------------
+        // 3) 두 API 결과가 모두 준비된 후 한 번만 렌더링
+        // ---------------------------------------------
         modalBody.innerHTML = `
             <h2>📘 자격 상세정보</h2>
+
             <h3>📘 취득방법</h3>
-            ${acquireInfo || "<p>정보 없음</p>"}
+            ${acquireInfo || "<p>취득방법 정보가 없습니다.</p>"}
 
             <h3>📘 추천 자격증</h3>
             <ul>
@@ -121,6 +122,7 @@ export async function loadDetailInfo(jmcd) {
                 <li>${recomJmNm2}</li>
             </ul>
         `;
+
     } catch (error) {
         console.error("데이터 로드 중 오류 발생:", error);
         modalBody.innerHTML = "<p>정보를 불러오는 데 오류가 발생했습니다.</p>";

@@ -1,4 +1,8 @@
-// server.js
+/*
+    // server.js  — 공공데이터 API 프록시 서버
+    --> 브라우저에서 직접 호출 불가능한 공공데이터 API를 Node 서버가 대신 호출해 XML을 그대로 프론트에 다시 전달
+*/
+
 const express = require('express');
 const cors = require('cors');
 const fetch = require('node-fetch'); // node-fetch@2 설치 필수!

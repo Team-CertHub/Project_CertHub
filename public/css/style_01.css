@@ -367,3 +367,81 @@ a:hover {
     overflow-y: auto;
     padding-right: 10px;
 }
+
+
+/* ======================================
+   6. 활용분야
+====================================== */
+/* 활용 분야 그리드 */
+.fields-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);  /* 한 줄에 2개씩 배치 */
+    gap: 16px;  /* 카드 간의 간격 */
+}
+
+/* 개별 카드 스타일 */
+.field-card {
+    border: 1px solid #e5e7eb;
+    background: white;
+    border-radius: 12px;
+    padding: 14px 16px;
+    transition: 0.2s ease;
+    cursor: pointer;
+}
+
+.field-card:hover {
+    background: #f9fafb;
+}
+
+/* 제목 */
+.field-card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111827;
+}
+
+/* 부제 */
+.field-card-tags {
+    font-size: 12px;
+    color: #6b7280;
+    margin-top: 4px;
+}
+
+/* ============================================
+   -- 활용 분야, 커뮤니티, 지금 뜨는 자격증 위치 조정
+============================================== */
+/* 전체 컨테이너: Flexbox로 배치 */
+#three-sections-wrapper {
+    display: flex;
+    justify-content: space-between;  /* 왼쪽과 오른쪽 섹션 사이 공간을 넓힘 */
+    gap: 24px;  /* 각 섹션 간 간격 */
+}
+
+/* 왼쪽 영역: 자격증 + 커뮤니티 글 */
+#left-sections {
+    display: block;
+    flex-direction: column;  /* 위아래로 배치 */
+    gap: 24px;  /* 각 섹션 간 간격 */
+    flex: 2;  /* 왼쪽 섹션이 오른쪽보다 더 많이 차지하도록 설정 */
+}
+
+/* 오른쪽 영역: 활용 분야 */
+#fields-section {
+    display: block;
+    flex: 1;  /* 오른쪽 섹션은 남은 공간을 차지 */
+    min-width: 300px;  /* 최소 너비 설정 */
+}
+
+/* 각 섹션 제목 스타일 */
+#fields-section h2, #trending-certs-section h2, #community-section h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+/* 각 섹션 내용의 스타일 */
+#fields-browse, #certlist-trending, #community-latest-1 {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
