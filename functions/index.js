@@ -118,6 +118,35 @@ app.get("/api/exam/stats", async (req, res) => {
     res.status(500).send("서버 오류: " + error.message);
   }
 });
+
+// ===============================================
+// 관련 자격증 조회 API 추가
+// ===============================================
+app.get("/api/attendqual", async (req, res) => {
+  const jmCd = req.query.jmcd;
+
+  if (!jmCd) return res.status(400).send("jmcd parameter is required.");
+
+  const serviceKey =
+    "6392230c571116074d2e799a1309a9e8ac656fc32deebd7be9f12b12328518fd";
+
+  const baseUrl =
+    "http://openapi.q-net.or.kr/api/service/rest/InquiryAttenQualSVC/getList";
+
+  const query =
+    `?serviceKey=${serviceKey}&jmCd=${encodeURIComponent(jmCd)}&pageNo=1&numOfRows=2`; // 2개의 관련 자격증만 가져오기
+
+  try {
+    const response = await fetch(baseUrl + query);
+    const xmlText = await response.text();
+    res.set("Content-Type", "application/xml; charset=utf-8");
+    res.send(xmlText);
+  } catch (error) {
+    console.error("관련 자격증 호출 오류:", error);
+    res.status(500).send("서버 오류: " + error.message);
+  }
+});
+
 // ===============================================
 // Firebase Functions로 Export
 // ===============================================

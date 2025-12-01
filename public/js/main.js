@@ -1,11 +1,6 @@
-/*
-    // js/main.js
-     - 페이지 로드 → API 호출 → 렌더링 → 이벤트 등록
-     - 페이지 초기화, 이벤트 처리, API 호출 흐름 제어
-*/
+// main.js
 
-// 실행 시키는 명령어 firebase emulators:start --only hosting,functions
-import { fetchCertificates, fetchSchedule,fetchExamStats, getItemsFromXML } from "./api.js";
+import { fetchCertificates, fetchSchedule, fetchExamStats, getItemsFromXML } from "./api.js";
 import { handleAutocomplete } from "./autocomplete.js";
 import { searchCertificate } from "./search.js";
 import { setAllItems, loadMoreItems, handleDivScroll } from "./pagination.js";
@@ -52,6 +47,9 @@ async function initPage() {
     // 🔹 시험 일정 출력 실행
     await loadScheduleToCalendar();
     await loadTopApplyList();
+
+    // 🔹 "자세히" 버튼 클릭 이벤트 처리
+    addDetailButtonClickListeners();
 }
 
 // ===========================================
@@ -71,7 +69,6 @@ async function loadScheduleToCalendar() {
     const scheduleContainer = document.getElementById("results_calendar");
 
     // 기존 제목 유지한 채 내용만 출력하도록 목표 div 선택
-
     const defaultJmCd = "7910"; // 임시코드임
     const xmlDoc = await fetchSchedule(defaultJmCd, "2025");
     const items = getItemsFromXML(xmlDoc);
@@ -93,4 +90,17 @@ async function loadTopApplyList() {
     document.getElementById("scrollContainer-trending").addEventListener("scroll", handleDivScroll);
     // 👇 데이터 파싱 + 정렬 + 렌더링 전부 renderExamStatsList에서 처리
     renderExamStatsList(items, container);
+}
+
+// ===========================================
+// 🔹 "자세히" 버튼 클릭 이벤트 처리
+// ===========================================
+function addDetailButtonClickListeners() {
+    // 자격증 목록에서 "자세히" 버튼을 클릭했을 때 호출되는 부분
+    document.querySelectorAll(".detail-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const jmcd = btn.getAttribute("data-jmcd");
+            loadDetailInfo(jmcd);  // 상세 정보를 불러오는 함수 호출
+        });
+    });
 }

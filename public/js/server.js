@@ -108,6 +108,29 @@ app.get('/api/schedule', async (req, res) => {
   }
 });
 
+// =============================================== 관련 자격 API ===============================================
+app.get('/api/attendqual', async (req, res) => {
+  const jmCd = req.query.jmcd;   // 종목코드
+
+  if (!jmCd) return res.status(400).send("jmcd parameter is required.");
+
+  const baseUrl = 'http://openapi.q-net.or.kr/api/service/rest/InquiryAttenQualSVC/getList';
+
+  const query = `?serviceKey=${serviceKey}&jmCd=${encodeURIComponent(jmCd)}&pageNo=1&numOfRows=2`;
+
+  const url = baseUrl + query;
+
+  try {
+    const response = await fetch(url);
+    const xmlText = await response.text();
+    res.set('Content-Type', 'application/xml; charset=utf-8');
+    res.send(xmlText);
+  } catch (error) {
+    console.error("관련 자격증 조회 오류:", error);
+    res.status(500).send("서버 오류: " + error.message);
+  }
+});
+
 // =============================================== 응시자격별 원서접수 및 합격 현황 API ===============================================
 app.get('/api/exam/stats', async (req, res) => {
   const grdCd = req.query.grdCd || '10';     // 등급코드
