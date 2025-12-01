@@ -149,7 +149,7 @@
     </div>
   </div>
 
-  <script src="js/recommendation.js"></script>
+  <script src="js/mypage/recommendation.js"></script>
   <script>
     let dummyData = null;
     let currentUser = 'user001';
@@ -157,7 +157,7 @@
     // 페이지 로드 시 더미 데이터 가져오기
     async function init() {
       try {
-        const response = await fetch('http://127.0.0.1:5000/Dummy_data/dummy_data.json');
+        const response = await fetch('Dummy_data/dummy_data.json');
         dummyData = await response.json();
         
         renderUserSelector();

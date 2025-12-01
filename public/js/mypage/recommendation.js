@@ -62,39 +62,20 @@ function getTopRecommendations(clickCounts, bookmarkedIds, topN = 5) {
 }
 
 /**
- * certId를 실제 자격증 정보로 매핑
+ * certId를 실제 자격증 정보로 매핑 (더미 데이터의 certificates 사용)
  * @param {Array} recommendations - 추천 certId 배열
+ * @param {Array} certificates - 더미 데이터의 자격증 목록
  * @returns {Array} - 자격증 정보 배열
  */
-function mapCertIdsToInfo(recommendations) {
-  // certId 매핑 테이블 (실제로는 API나 데이터베이스에서 가져와야 함)
-  const certMapping = {
-    'PVT-2025-000': { name: 'SQLD', field: '데이터', next: '2025-12-14', rate: 4.6 },
-    'PVT-2025-001': { name: '정보처리기사', field: 'IT/개발', next: '2025-11-23', rate: 4.7 },
-    'PVT-2025-002': { name: '리눅스마스터 2급', field: 'IT/인프라', next: '2026-02-08', rate: 4.3 },
-    'PVT-2025-003': { name: '정보보안기사', field: '보안', next: '2026-03-15', rate: 4.6 },
-    'PVT-2025-004': { name: '네트워크관리사 2급', field: 'IT/인프라', next: '2026-02-22', rate: 4.1 },
-    'PVT-2025-005': { name: 'AWS Solutions Architect', field: '클라우드', next: '2026-01-15', rate: 4.8 },
-    'PVT-2025-006': { name: '빅데이터분석기사', field: '데이터/AI', next: '2026-01-10', rate: 4.8 },
-    'PVT-2025-007': { name: '전산세무 1급', field: '회계/재무', next: '2026-02-20', rate: 4.5 },
-    'PVT-2025-008': { name: 'ADsP', field: '데이터', next: '2026-02-01', rate: 4.2 },
-    'PVT-2025-009': { name: 'TOEIC Speaking', field: '어학', next: '2025-12-10', rate: 4.4 },
-    'PVT-2025-010': { name: '컴퓨터활용능력 1급', field: '사무/IT', next: '2025-12-21', rate: 4.3 },
-    'JMCD_1000': { name: '사무자동화산업기사', field: '사무/IT', next: '2026-01-25', rate: 4.0 },
-    'JMCD_1001': { name: '전산세무 2급', field: '회계/재무', next: '2025-12-07', rate: 4.4 },
-    'JMCD_1002': { name: '물류관리사', field: '유통/물류', next: '2026-01-18', rate: 4.2 },
-    'JMCD_1003': { name: '한국사능력검정시험', field: '교양', next: '2025-12-05', rate: 4.5 },
-    'JMCD_1004': { name: 'GTQ 그래픽기술자격', field: '디자인', next: '2026-01-12', rate: 4.1 },
-    'JMCD_1005': { name: '워드프로세서', field: '사무', next: '2025-12-15', rate: 4.0 },
-    'JMCD_1006': { name: '전기기사', field: '전기/전자', next: '2026-03-08', rate: 4.3 },
-    'JMCD_1007': { name: '건축기사', field: '건설/안전', next: '2026-03-22', rate: 4.4 },
-    'JMCD_1008': { name: '소방설비기사', field: '건설/안전', next: '2026-04-05', rate: 4.2 },
-    'JMCD_1009': { name: '위험물산업기사', field: '안전', next: '2026-03-15', rate: 4.1 },
-    'JMCD_1010': { name: '산업안전기사', field: '안전', next: '2026-04-12', rate: 4.3 }
-  };
+function mapCertIdsToInfo(recommendations, certificates) {
+  // certificates 배열을 certId 기준으로 맵으로 변환
+  const certMap = {};
+  certificates.forEach(cert => {
+    certMap[cert.certId] = cert;
+  });
   
   return recommendations.map(rec => {
-    const certInfo = certMapping[rec.certId];
+    const certInfo = certMap[rec.certId];
     if (certInfo) {
       return {
         ...certInfo,
@@ -121,8 +102,8 @@ window.generateRecommendations = function(dummyData, currentUserId = 'user001') 
   // 3. 추천 목록 생성 (북마크 제외, 상위 5개)
   const topRecommendations = getTopRecommendations(clickCounts, bookmarkedIds, 5);
   
-  // 4. certId를 실제 자격증 정보로 매핑
-  const recommendedCerts = mapCertIdsToInfo(topRecommendations);
+  // 4. certId를 실제 자격증 정보로 매핑 (더미 데이터의 certificates 사용)
+  const recommendedCerts = mapCertIdsToInfo(topRecommendations, dummyData.certificates);
   
   console.log('=== 추천 시스템 로그 ===');
   console.log('총 클릭 데이터:', dummyData.search_clicks.length);
@@ -137,8 +118,23 @@ window.generateRecommendations = function(dummyData, currentUserId = 'user001') 
  */
 window.loadDummyDataAndGenerateRecommendations = async function(currentUserId = 'user001') {
   try {
-    const response = await fetch('http://127.0.0.1:5000/Dummy_data/dummy_data.json');
+    console.log('더미 데이터 로드 시작...');
+    const response = await fetch('../Dummy_data/dummy_data.json');
+    
+    if (!response.ok) {
+      throw new Error(`HTTP 오류! status: ${response.status}`);
+    }
+    
     const dummyData = await response.json();
+    console.log('더미 데이터 로드 성공:', dummyData);
+    console.log('certificates 존재 여부:', !!dummyData.certificates);
+    console.log('certificates 길이:', dummyData.certificates?.length);
+    
+    if (!dummyData.certificates) {
+      console.error('certificates 배열이 없습니다!');
+      console.log('전체 데이터 구조:', Object.keys(dummyData));
+      return [];
+    }
     
     const recommendations = generateRecommendations(dummyData, currentUserId);
     
@@ -150,6 +146,8 @@ window.loadDummyDataAndGenerateRecommendations = async function(currentUserId = 
     return recommendations;
   } catch (error) {
     console.error('더미 데이터 로드 실패:', error);
+    console.error('에러 상세:', error.message);
+    console.error('스택:', error.stack);
     return [];
   }
 };
