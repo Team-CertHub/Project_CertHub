@@ -101,7 +101,7 @@ async function initPage() {
     await loadTopApplyList();
 
     // 🔹 "자세히" 버튼 클릭 이벤트 처리
-    addDetailButtonClickListeners();
+    //addDetailButtonClickListeners();
 
     await loadFieldsBrowse();
 }
