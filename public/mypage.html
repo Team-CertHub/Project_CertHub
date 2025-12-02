@@ -15,7 +15,6 @@
     </div>
     <nav class="nav-actions">
       <a class="btn ghost" href="index.html">홈</a>
-      <button class="logout" data-logout>로그아웃</button>
 
       <button class="btn ghost" id="toggleTheme">🌓 Dark mode</button>
     </nav>
@@ -34,7 +33,7 @@
             </div>
             <div class="row">
               <button class="btn btn-profile-edit" id="editProfileBtn">프로필 편집</button>
-              <button class="btn ghost" id="logoutBtn" style="margin-left: 8px;">로그아웃</button>
+              <button class="btn ghost" id="logoutBtn" style="margin-left: 8px;" data-logout>로그아웃</button>
             </div>
           </div>
         </div>
@@ -89,5 +88,6 @@
   <script type="module" src="js/firebase/firebase-logout.js"></script>
   <script type="module" src="js/firebase/firebase-todo-weeks.js"></script>
   <script type="module" src="js/firebase/sync/firebase-todo-week-sync.js"></script>
+  <script type="module" src="js/firebase/firebase-users.js"></script>
 </body>
 </html>
