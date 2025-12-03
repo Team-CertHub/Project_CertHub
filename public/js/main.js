@@ -5,7 +5,7 @@ import { handleAutocomplete } from "./autocomplete.js";
 import { searchCertificate } from "./search.js";
 import { setAllItems, loadMoreItems, handleDivScroll } from "./pagination.js";
 import { renderScheduleList, renderExamStatsList } from "./render.js";
-import { loadDetailInfo, closeModal } from "./detail.js";
+import { loadDetailInfo } from "./detail.js";
 
 document.addEventListener("DOMContentLoaded", initPage);
 document.getElementById("searchInput").addEventListener("input", handleAutocomplete);
@@ -128,17 +128,6 @@ async function initPage() {
     await loadFieldsBrowse(items);
 }
 
-
-// ===========================================
-// 🔹 모달 닫기
-// ===========================================
-document.getElementById("modalCloseBtn").addEventListener("click", closeModal);
-
-// 바깥 클릭 시 닫기
-document.getElementById("detailModal").addEventListener("click", (e) => {
-    if (e.target.id === "detailModal") closeModal();
-});
-
 // ===========================================
 // 🔹 시험 일정 불러오기 함수
 // ===========================================
@@ -170,14 +159,20 @@ async function loadTopApplyList() {
 }
 
 // ===========================================
-// 🔹 "자세히" 버튼 클릭 이벤트 처리
+// 🔹 "자세히 보기" 버튼 클릭 이벤트 (이벤트 위임)
 // ===========================================
-function addDetailButtonClickListeners() {
-    // 자격증 목록에서 "자세히" 버튼을 클릭했을 때 호출되는 부분
-    document.querySelectorAll(".detail-btn").forEach(btn => {
-        btn.addEventListener("click", () => {
-            const jmcd = btn.getAttribute("data-jmcd");
-            loadDetailInfo(jmcd);  // 상세 정보를 불러오는 함수 호출
-        });
-    });
-}
+document.addEventListener("DOMContentLoaded", () => {
+  const resultsDiv = document.getElementById("results");
+  if (!resultsDiv) return;
+
+  resultsDiv.addEventListener("click", (e) => {
+    const btn = e.target.closest(".detail-btn");
+    if (!btn) return;
+
+    const jmcd = btn.getAttribute("data-jmcd");
+    if (!jmcd) return;
+
+    // 새 모달 기반 상세 정보 로더 호출
+    loadDetailInfo(jmcd);
+  });
+});

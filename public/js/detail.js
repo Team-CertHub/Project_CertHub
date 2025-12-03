@@ -95,39 +95,31 @@ async function fetchTextWithRetry(
 // 같은 jmcd를 여러 번 눌렀을 때 재요청 안 하도록 캐시
 const detailCache = new Map();
 
-
-// 모달 닫기 함수
-export function closeModal() {
-    document.getElementById("detailModal").style.display = "none";
-}
-
+// 모달 기반 상세 정보 로더 (공통 showModal 사용)
 export async function loadDetailInfo(jmcd) {
-    const modal = document.getElementById("detailModal");
-    const modalBody = document.getElementById("modalBody");
-
-    if (!modal || !modalBody) return;
-
-    // 모달 띄우기
-    modal.style.display = "flex";
-
-    // 1) 캐시에 이미 있으면 바로 출력 (API 호출 X)
+    // 1) 캐시가 있으면 바로 모달로 표시
     const cachedHtml = detailCache.get(jmcd);
     if (cachedHtml) {
-        modalBody.innerHTML = cachedHtml;
+        const contentEl = document.createElement("div");
+        contentEl.innerHTML = cachedHtml;
+
+        if (typeof window.showModal === "function") {
+            window.showModal("자격 상세 정보", contentEl);
+        } else {
+            alert("자격 상세 정보\n\n" + contentEl.textContent);
+        }
         return;
     }
-
-    // 2) 처음 눌렀을 때만 로딩 텍스트 + API 호출
-    modalBody.innerHTML = "불러오는 중...";
 
     try {
         // ---------------------------------------------
         // ✅ 상세조회 + 추천 자격증 API를 동시에 호출
+        // (기존 코드 그대로 사용)
         // ---------------------------------------------
         const [detailXmlText, relatedXmlText] = await Promise.all([
             fetchTextWithRetry(`/api/cert/detail?jmcd=${jmcd}`, {
                 retries: 2,   // 추가로 2번 더 시도 → 총 3번
-                delay: 500,  // 실패 시 1초 기다렸다가 다시
+                delay: 500,   // 실패 시 0.5초 기다렸다가 다시
                 timeout: 10000,
             }),
             fetchTextWithRetry(`/api/attendqual?jmcd=${jmcd}`, {
@@ -137,12 +129,12 @@ export async function loadDetailInfo(jmcd) {
             }),
         ]);
 
-        // 🔍 디버깅: XML 응답 구조 확인
         console.log("=== 관련 자격증 API 응답 (처음 500자) ===");
         console.log(relatedXmlText.substring(0, 500));
 
         // ---------------------------------------------
         // 상세조회 XML 파싱 → 취득방법 추출
+        // (기존 detailXml 파싱 부분 그대로)
         // ---------------------------------------------
         const detailXml = new DOMParser().parseFromString(detailXmlText, "text/xml");
         const detailItems = Array.from(detailXml.getElementsByTagName("item"));
@@ -150,7 +142,6 @@ export async function loadDetailInfo(jmcd) {
         let acquireInfo = "";
         let firstContent = "";
 
-        // 상세 정보가 여러 개 올 수 있으니까 전부 한 번 돌면서 확인
         if (detailItems.length > 0) {
             detailItems.forEach(item => {
                 const typeNode = item.getElementsByTagName("infogb")[0];
@@ -158,7 +149,6 @@ export async function loadDetailInfo(jmcd) {
 
                 const type = typeNode?.textContent?.trim() || "";
                 const rawContent = contentNode?.textContent?.trim() || "";
-
                 if (!rawContent) return;
 
                 const cleaned = cleanQnetContent(rawContent);
@@ -168,8 +158,7 @@ export async function loadDetailInfo(jmcd) {
                     firstContent = cleaned;
                 }
 
-                // "취득", "응시", "검정" 같은 키워드가 들어가면
-                // 취득방법 쪽 내용으로 우선 사용
+                // "취득", "응시", "검정" 같은 키워드가 들어가면 취득방법 우선 사용
                 if (!acquireInfo && /취득|응시|검정|취득 /.test(type)) {
                     acquireInfo = cleaned;
                 }
@@ -181,10 +170,8 @@ export async function loadDetailInfo(jmcd) {
             acquireInfo = firstContent;
         }
 
-
         // ---------------------------------------------
         // 관련 자격증 XML 파싱
-        // 🔹 API는 전체 목록을 반환하므로, attenJmCd === jmcd 인 항목을 찾아야 함
         // ---------------------------------------------
         const relatedXml = new DOMParser().parseFromString(relatedXmlText, "text/xml");
         const relatedItems = Array.from(relatedXml.getElementsByTagName("item"));
@@ -194,7 +181,7 @@ export async function loadDetailInfo(jmcd) {
 
         const relatedCerts = [];
 
-        // 전체 item 중에서 attenJmCd가 현재 자격증 코드(jmcd)와 일치하는 것만 찾기
+        // attenJmCd 가 현재 jmcd와 같은 항목 찾기
         const matchedItem = relatedItems.find(item => {
             const attenJmCd = item.getElementsByTagName("attenJmCd")[0]?.textContent?.trim();
             return attenJmCd === jmcd;
@@ -202,11 +189,10 @@ export async function loadDetailInfo(jmcd) {
 
         if (matchedItem) {
             console.log("✅ 일치하는 자격증 발견!");
-            
-            // 일치하는 항목에서 recomJmNm1, recomJmNm2 추출
+
             const recomJmNm1 = matchedItem.getElementsByTagName("recomJmNm1")[0]?.textContent?.trim();
             const recomJmNm2 = matchedItem.getElementsByTagName("recomJmNm2")[0]?.textContent?.trim();
-            
+
             if (recomJmNm1) {
                 relatedCerts.push(recomJmNm1);
                 console.log(`  - 추천 1: ${recomJmNm1}`);
@@ -229,11 +215,9 @@ export async function loadDetailInfo(jmcd) {
         }
 
         // ---------------------------------------------
-        // 최종 HTML 구성
+        // 최종 HTML (제목은 모달 헤더에서 넣으므로 h2 제거)
         // ---------------------------------------------
         const html = `
-            <h2>자격 상세 정보</h2>
-
             <h3>📘 취득방법</h3>
             ${acquireInfo || "<p>취득방법 정보가 없습니다.</p>"}
 
@@ -243,13 +227,26 @@ export async function loadDetailInfo(jmcd) {
             </ul>
         `;
 
-        modalBody.innerHTML = html;
-
-        // ✅ 같은 자격증을 다시 눌렀을 때는 바로 이걸 사용
+        // 캐시에 저장
         detailCache.set(jmcd, html);
+
+        // showModal 로 표시
+        const contentEl = document.createElement("div");
+        contentEl.innerHTML = html;
+
+        if (typeof window.showModal === "function") {
+            window.showModal("자격 상세 정보", contentEl);
+        } else {
+            alert("자격 상세 정보\n\n" + contentEl.textContent);
+        }
 
     } catch (error) {
         console.error("데이터 로드 중 오류 발생:", error);
-        modalBody.innerHTML = "<p>정보를 불러오는 데 오류가 발생했습니다.</p>";
+        if (typeof window.showModal === "function") {
+            window.showModal("자격 상세 정보", "정보를 불러오는 데 오류가 발생했습니다.");
+        } else {
+            alert("정보를 불러오는 데 오류가 발생했습니다.");
+        }
     }
 }
+
