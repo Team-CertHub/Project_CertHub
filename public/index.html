@@ -34,7 +34,7 @@
             </section>
             <!-- 검색 영역과 시험 일정 영역 -->
             <div class="search-calendar-wrapper">
-                <!-- 검색 영역 -->           
+                <!-- 검색 영역 -->
                 <div class="search-div">
                     <!-- 검색 영역의 검색창 부분 -->
                     <div class="search-box search-top">
@@ -42,6 +42,8 @@
                             <span class="search-input-icon">🔍</span>
                             <input id="searchInput" class="search-input" type="text"
                                 placeholder="자격증을 검색해보세요 (예: 정보처리기사)" />
+                            <!-- 자동완성 박스 -->
+                            <div id="autocomplete" class="autocomplete-box"></div>
                         </div>
                         <button id="searchButton" class="search-btn">검색</button>
                     </div>
@@ -54,10 +56,11 @@
                 <!----------------- (2) 📅 시험일정 -------------------------------->
                 <div id="calendar-section" class="data-section">
                     <h2 class="h2">📅 시험 일정</h2>
-                    <div id="calendar-1"></div>
+                    <div id="scrollContainer-calendar" class="search-bottom">
+                        <div id="results_calendar"></div>
+                    </div>
                 </div>
             </div>
-
 
             <!----------------- (3) 📘 자격증 상세 정보 → 클릭하면 상세보기 데이터 들어가는 영역 ----------------->
             <div id="cert-detail-section" class="data-section">
@@ -86,30 +89,25 @@
                 </div>
             </div>
 
-            <!----------------- (4) 📈 지금 뜨는 자격증 ----------------->
-            <div id="trending-certs-section" class="data-section">
-                <h2 class="h2">📈 지금 뜨는 자격증</h2>
-                <div id="certlist-trending">
-                    <!-- 🔹 DATA.certsTrending 데이터 삽입 -->
+            <div id="three-sections-wrapper" class="data-section">
+                <!----------------- (4) 📈 지금 뜨는 자격증 ----------------->
+                <div id="trending-certs-section" class="data-section">
+                    <h2 class="h2">📈 지격 정보 현황</h2>
+                    <div id="scrollContainer-trending" class="search-bottom">
+                        <div id="certlist-trending">
+                            <!-- 🔹 DATA.certsTrending 데이터 삽입 -->
+                        </div>
+                    </div>
+                </div>
+
+                <!----------------- (6) 🧭 활용 분야 ----------------->
+                <div id="fields-section" class="data-section">
+                    <h2 class="h2">🧭 활용 분야 둘러보기</h2>
+                    <div id="fields-browse" class="fields-grid">
+                        <!-- 🔹 분야 데이터 삽입 -->
+                    </div>
                 </div>
             </div>
-
-            <!----------------- (5) 🗣 최신 커뮤니티(추후 개발 예정) ----------------->
-            <div id="community-section" class="data-section">
-                <h2 class="h2">🗣 최신 커뮤니티 글</h2>
-                <div id="community-latest-1">
-                    <!-- 🔹 최신 글 / 게시물 리스트 삽입 -->
-                </div>
-            </div>
-
-            <!----------------- (6) 🧭 활용 분야 ----------------->
-            <div id="fields-section" class="data-section">
-                <h2 class="h2">🧭 활용 분야 둘러보기</h2>
-                <div id="fields-browse">
-                    <!-- 🔹 분야 데이터 삽입 -->
-                </div>
-            </div>
-
             <script type="module" src="js/main.js"></script>
             <script type="module" src="js/firebase/firebase-auth-state.js"></script>
             <script src="js/theme.js"></script>
@@ -120,6 +118,15 @@
     <footer class="site-footer container">
         <p class="caption muted">© CertHub</p>
     </footer>
+
+    <!-- ======================= Modal ======================= -->
+    <div id="detailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button id="modalCloseBtn">✕</button>
+            <div id="modalBody">불러오는 중...</div>
+        </div>
+    </div>
+
 </body>
 
 </html>
