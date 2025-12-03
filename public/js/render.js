@@ -45,9 +45,9 @@ export function renderListItem(item, container) {
     div.querySelector(".detail-btn").addEventListener("click", () => loadDetailInfo(jmcd));
 
 
-    // “자세히” 버튼 클릭 → loadDetailInfo(jmcd) - 자격증 상세조회 API로 이동해 모달을 띄움
-    const btn = div.querySelector(".detail-btn");
-    btn.addEventListener("click", () => loadDetailInfo(jmcd));
+    // // “자세히” 버튼 클릭 → loadDetailInfo(jmcd) - 자격증 상세조회 API로 이동해 모달을 띄움
+    // const btn = div.querySelector(".detail-btn");
+    // btn.addEventListener("click", () => loadDetailInfo(jmcd));
 }
 
 // ================================================================================================================================== //
