@@ -79,7 +79,7 @@ app.get('/api/cert/detail', async (req, res) => {
 // =============================================== 시험 일정 API ===============================================
 app.get('/api/schedule', async (req, res) => {
   const jmCd = req.query.jmcd;   // 종목코드
-  const year = req.query.implYy;   // 연도 (옵션)
+  let year = req.query.implYy;   // 연도 (옵션)
 
   if (!jmCd) return res.status(400).send("jmcd parameter is required.");
 
