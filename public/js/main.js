@@ -120,8 +120,15 @@ async function initPage() {
     loadMoreItems();
     document.getElementById("scrollContainer").addEventListener("scroll", handleDivScroll);
 
+    
+    const firstItem = randomTen[0];
+    const firstJmcd = firstItem.getElementsByTagName("jmcd")[0]?.textContent;
+    const firstName = firstItem.getElementsByTagName("jmfldnm")[0]?.textContent;
+
+    loadScheduleToCalendar(firstJmcd, firstName);
+
     // 3) 나머지 API들은 병렬로 돌려도 되고, 순서 유지 필요 없으면 await 안 해도 됨
-    loadScheduleToCalendar();
+    //loadScheduleToCalendar();
     loadTopApplyList();
 
     // 🔹 여기서 바로 위에서 가져온 items 재사용
@@ -142,17 +149,30 @@ document.getElementById("detailModal").addEventListener("click", (e) => {
 // ===========================================
 // 🔹 시험 일정 불러오기 함수
 // ===========================================
-async function loadScheduleToCalendar() {
+export async function loadScheduleToCalendar(jmcd, certName = "") {
     const scheduleContainer = document.getElementById("results_calendar");
 
-    // 기존 제목 유지한 채 내용만 출력하도록 목표 div 선택
-    const defaultJmCd = "7910"; // 임시코드임
-    const xmlDoc = await fetchSchedule(defaultJmCd, "2025");
+    if (!jmcd) {
+        scheduleContainer.innerHTML = "<p>시험일정 정보가 없습니다.</p>";
+        return;
+    }
+
+    const xmlDoc = await fetchSchedule(jmcd, "2025");
     const items = getItemsFromXML(xmlDoc);
 
-    document.getElementById("scrollContainer-calendar").addEventListener("scroll", handleDivScroll);
-    renderScheduleList(items, scheduleContainer);
+    // 제목 + 리스트 영역 따로 만들기
+    scheduleContainer.innerHTML = `
+        <h2 style="margin-bottom:12px;">📘 ${certName || "자격증"} 시험일정</h2>
+        <div id="schedule-list"></div>
+    `;
+
+    const listContainer = document.getElementById("schedule-list");
+    renderScheduleList(items, listContainer);
 }
+
+// 전역 노출은 그대로 유지
+window.loadScheduleToCalendar = loadScheduleToCalendar;
+
 
 // ----------------------------
 // 📌 응시률이 높은 자격증 TOP 리스트
@@ -169,15 +189,3 @@ async function loadTopApplyList() {
     renderExamStatsList(items, container);
 }
 
-// ===========================================
-// 🔹 "자세히" 버튼 클릭 이벤트 처리
-// ===========================================
-function addDetailButtonClickListeners() {
-    // 자격증 목록에서 "자세히" 버튼을 클릭했을 때 호출되는 부분
-    document.querySelectorAll(".detail-btn").forEach(btn => {
-        btn.addEventListener("click", () => {
-            const jmcd = btn.getAttribute("data-jmcd");
-            loadDetailInfo(jmcd);  // 상세 정보를 불러오는 함수 호출
-        });
-    });
-}

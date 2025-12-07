@@ -37,13 +37,17 @@ export function renderListItem(item, container) {
                 style="padding:6px 12px; border-radius:6px; cursor:pointer;">
                 자세히
             </button>
+            <button class="schedule-btn" data-jmcd="${jmcd}"
+                style="padding:6px 12px; border-radius:6px; cursor:pointer;">
+                시험일정
+            </button>
         </div>
         <hr>
     `;
 
     container.appendChild(div);
     div.querySelector(".detail-btn").addEventListener("click", () => loadDetailInfo(jmcd));
-
+    div.querySelector(".schedule-btn").addEventListener("click", async () => {await window.loadScheduleToCalendar(jmcd, jmfldnm);});
 
     // // “자세히” 버튼 클릭 → loadDetailInfo(jmcd) - 자격증 상세조회 API로 이동해 모달을 띄움
     // const btn = div.querySelector(".detail-btn");
@@ -54,13 +58,13 @@ export function renderListItem(item, container) {
 
 // 시험 일정 렌더링(renderScheduleList) - 시험 일정 API(XML) 데이터를 화면에 보기 좋게 정리해서 보여주는 기능
 export function renderScheduleList(items, container) {
-    container.innerHTML = ""; // 기존 화면 초기화 --> '시험 일정 불러오는 중' 을 화면에서 제거
+    container.innerHTML = ""; // 리스트 영역만 초기화
 
-    // 오늘 날짜 (00:00 기준) - 날짜 비교
+    // 🔥 오늘 날짜 (00:00 기준)
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    // YYYYMMDD → Date 객체 변환 함수 - XML 데이터가 20250216 형식이므로 변환 필수
+    // 🔥 YYYYMMDD → Date 객체 변환 함수
     function toDate(yyyymmdd) {
         if (!yyyymmdd || yyyymmdd === "-") return null;
         const y = Number(yyyymmdd.substring(0, 4));
@@ -69,7 +73,7 @@ export function renderScheduleList(items, container) {
         return new Date(y, m, d);
     }
 
-    // 원서접수 종료일(endDate)가 오늘 이전이면 제외 - 이미 끝난 일정 안 보여줌, 현재 또는 미래 일정만 표시
+    // 🔥 docRegEndDt (원서 접수 종료일)이 오늘보다 이전인 일정 제외!
     const upcomingItems = items.filter(item => {
         const end = item.getElementsByTagName("docRegEndDt")[0]?.textContent || "-";
         const endDate = toDate(end);
@@ -86,24 +90,20 @@ export function renderScheduleList(items, container) {
         return;
     }
 
-    // 정렬 (원서접수시작일 빠른 순)
+    // 🔥 "접수 종료일"이 가까운 순으로 정렬
     upcomingItems.sort((a, b) => {
-        const aStart = toDate(a.getElementsByTagName("docRegStartDt")[0]?.textContent);
-        const bStart = toDate(b.getElementsByTagName("docRegStartDt")[0]?.textContent);
-        return aStart - bStart;
+        const aEnd = toDate(a.getElementsByTagName("docRegEndDt")[0]?.textContent);
+        const bEnd = toDate(b.getElementsByTagName("docRegEndDt")[0]?.textContent);
+        return aEnd - bEnd;
     });
 
-    // 필터 + 정렬된 일정 출력 - 시행년도(implYy), 회차(implSeq), 접수기간(docRegStartDt ~ docRegEndDt), 시험기간, 발표일
+    // 🔥 필터 + 정렬된 일정 출력
     upcomingItems.forEach(item => {
-        const implYy = item.getElementsByTagName("implYy")[0]?.textContent || "";
-        const implSeq = item.getElementsByTagName("implSeq")[0]?.textContent || "";
-        const description = item.getElementsByTagName("description")[0]?.textContent || "설명 없음";
-
         const docRegStartDt = item.getElementsByTagName("docRegStartDt")[0]?.textContent || "-";
-        const docRegEndDt = item.getElementsByTagName("docRegEndDt")[0]?.textContent || "-";
+        const docRegEndDt   = item.getElementsByTagName("docRegEndDt")[0]?.textContent || "-";
         const docExamStartDt = item.getElementsByTagName("docExamStartDt")[0]?.textContent || "-";
-        const docExamEndDt = item.getElementsByTagName("docExamEndDt")[0]?.textContent || "-";
-        const docPassDt = item.getElementsByTagName("docPassDt")[0]?.textContent || "-";
+        const docExamEndDt   = item.getElementsByTagName("docExamEndDt")[0]?.textContent || "-";
+        const docPassDt      = item.getElementsByTagName("docPassDt")[0]?.textContent || "-";
 
         const div = document.createElement("div");
         div.className = "schedule-card";
@@ -115,8 +115,6 @@ export function renderScheduleList(items, container) {
         `;
 
         div.innerHTML = `
-            <h3 style="font-size:18px; margin-bottom:6px;">${description}</h3>
-            <p>📌 회차: ${implYy}년 ${implSeq}회</p>
             <p>📝 원서접수: ${docRegStartDt} ~ ${docRegEndDt}</p>
             <p>✏️ 필기시험: ${docExamStartDt} ~ ${docExamEndDt}</p>
             <p>📢 발표일: ${docPassDt}</p>
@@ -125,6 +123,7 @@ export function renderScheduleList(items, container) {
         container.appendChild(div);
     });
 }
+
 
 // ================================================================================================================================== //
 
