@@ -1,118 +1,164 @@
-/* ==========================================================================
-   Certification Type Pages Specific Styles
-   ========================================================================== */
+/* ==========================================
+   🌙 자동 다크모드 / ☀️ 라이트모드 컬러 설정
+========================================== */
 
-/* ============ Layout ============ */
-.container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 24px;
+:root {
+    --fg: #222;
+    --muted: #666;
+    --card: #ffffff;
+    --panel: #f7f7f7;
+    --border: #e2e2e2;
+    --shadow: 0 4px 20px rgba(0,0,0,0.08);
+    --radius: 16px;
+    --primary: #3757ff;
 }
 
-.page-header {
-    margin-bottom: 32px;
+/* 🌙 다크모드 - PC / 브라우저 설정 자동 감지 */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --fg: #e7e7e7;
+        --muted: #aaa;
+        --card: #1c1c1c;
+        --panel: #262626;
+        --border: #333;
+        --shadow: 0 6px 20px rgba(0,0,0,0.5);
+        --primary: #6485ff;
+    }
 }
 
-.page-header h1 {
-    font-size: 32px;
-    font-weight: 700;
-    margin: 0 0 8px;
-    color: var(--fg);
-}
 
-.page-header .breadcrumb {
-    font-size: 14px;
-    color: var(--muted);
-}
-
-.page-header .breadcrumb a {
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.2s ease;
-}
-
-.page-header .breadcrumb a:hover {
-    color: var(--primary);
-}
-
-/* ============ Certification List ============ */
-.cert-list-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 24px;
-}
+/* ============================
+   🔥 Modern Card Redesign (기존 cert-card)
+============================ */
 
 .cert-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 24px;
+    background: linear-gradient(145deg, var(--card), var(--panel));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 28px;
     display: flex;
     flex-direction: column;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    position: relative;
+    overflow: hidden;
 }
 
 .cert-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, .4);
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
 }
 
-.cert-card-header {
-    margin-bottom: 16px;
+.cert-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(90deg, #3757ff, #00d2ff);
+    border-radius: 20px 20px 0 0;
+    opacity: 0.7;
 }
 
 .cert-title {
-    font-size: 20px;
-    font-weight: 600;
+    font-size: 22px;
+    font-weight: 700;
     color: var(--fg);
-    margin: 0 0 8px;
+    margin-bottom: 6px;
 }
 
 .cert-agency {
     font-size: 14px;
     color: var(--muted);
-}
-
-.cert-card-body {
-    flex-grow: 1;
     margin-bottom: 16px;
 }
 
 .cert-summary {
-    font-size: 14px;
+    font-size: 15px;
+    line-height: 1.7;
     color: var(--fg);
-    line-height: 1.6;
-}
-
-.cert-card-footer {
-    margin-top: auto;
 }
 
 .tags {
+    margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 16px;
+    gap: 10px;
 }
 
 .tag {
-    padding: 6px 12px;
-    border-radius: 999px;
-    border: 1px solid var(--border);
-    background: var(--panel);
+    padding: 6px 14px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
     font-size: 12px;
-    font-weight: 500;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(4px);
 }
 
-/* ============ Responsive ============ */
 @media (max-width: 768px) {
-    .page-header h1 {
-        font-size: 28px;
+    .cert-card {
+        padding: 20px;
     }
+    .cert-title {
+        font-size: 18px;
+    }
+}
 
-    .cert-list-container {
-        grid-template-columns: 1fr;
+/* =================================================
+   🔥 White Section Card (로그인 페이지 느낌)
+================================================= */
+
+.cert-page-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+.cert-section-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 32px;
+    margin-bottom: 28px;
+    border: 1px solid #eee;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.cert-section-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+}
+
+.cert-section-card h1,
+.cert-section-card h2,
+.cert-section-card h3 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    color: #222;
+}
+
+.cert-section-card p,
+.cert-section-card ul {
+    font-size: 16px;
+    line-height: 1.75;
+    color: #444;
+}
+
+.cert-section-card ul {
+    margin-left: 20px;
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+    .cert-section-card {
+        padding: 22px;
+    }
+    .cert-section-card h1,
+    .cert-section-card h2,
+    .cert-section-card h3 {
+        font-size: 20px;
     }
 }
 
@@ -123,7 +169,7 @@
     display: inline-block;
     padding: 8px 16px;
     margin-bottom: 16px;
-    background-color: #3757ff; /* 기본 버튼 색상 */
+    background-color: #3757ff;
     color: white;
     text-decoration: none;
     border-radius: 8px;
@@ -132,5 +178,119 @@
 }
 
 .btn.home-btn:hover {
-    background-color: #2747f2; /* 마우스 올렸을 때 색상 */
+    background-color: #2747f2;
 }
+
+/* =================================================
+    -- 01.html --> 필기, 실기 시험일정 두 영역
+================================================= */
+/* 시험 방식 두 개를 나란히 (좌우 배치) */
+.exam-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 28px;
+}
+
+/* 두 박스의 크기 균등 분배 */
+.exam-row .half {
+    flex: 1;
+}
+
+/* 모바일에서는 자동으로 위아래로 배치 */
+@media (max-width: 768px) {
+    .exam-row {
+        flex-direction: column;
+    }
+}
+
+/* 기본 불릿을 체크로 변경 */
+.exam-row ul {
+    list-style: none;   /* 기본 불릿 제거 */
+    padding-left: 0;
+}
+
+.exam-row li {
+    list-style-type: "✔  ";   /* 불릿 자체를 체크로 변경! */
+    padding-left: 1.2rem;     /* 체크와 텍스트 간격 */
+    margin-bottom: 8px;
+}
+
+
+/* =================================================
+    -- 01.html --> 세 영역
+================================================= */
+/* 3개의 카드를 가로로 나란히 */
+.three-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 28px;
+}
+
+/* 너비 균등 분배 */
+.three-row .three {
+    flex: 1;
+}
+/* 카드 안쪽 ul 들여쓰기 줄이기 */
+.cert-section-card ul {
+    padding-left: 18px;   /* 기존 40px → 18px 로 줄임 */
+    margin-left: 0;
+}
+
+/* li는 기본 정렬 문제 없음 → 혹시 딱 맞추고 싶으면 */
+.cert-section-card li {
+    padding-left: 0;
+    text-indent: 0;
+}
+/* 모바일에서는 세로로 정렬 */
+@media (max-width: 768px) {
+    .three-row {
+        flex-direction: column;
+    }
+}
+
+/* =================================================
+    -- 01.html --> 외부 링크 리스트
+================================================= */
+/* 불릿을 클립 아이콘으로 변경 */
+.link-list ul {
+    list-style: none;      /* 기본 불릿 제거 */
+    padding-left: 0;
+}
+
+.link-list li {
+    position: relative;
+    padding-left: 28px;    /* 클립 아이콘 자리 */
+    margin-bottom: 10px;
+}
+
+/* 클립 아이콘 추가 */
+.link-list li::before {
+    content: "➜";
+    position: absolute;
+    left: 0;
+    top: 0.2rem;
+    font-size: 18px;
+}
+
+/* =================================================
+    -- 03.html --> 전문, 등록 두 영역 나란히 배치
+================================================= */
+/* 두 개의 카드를 가로로 나란히 배치 */
+.two-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 28px;
+}
+
+/* 두 박스 동일 너비 */
+.two-row .half {
+    flex: 1;
+}
+
+/* 모바일에서는 세로로 */
+@media (max-width: 768px) {
+    .two-row {
+        flex-direction: column;
+    }
+}
+
