@@ -603,7 +603,7 @@ a:hover {
 .stat-label {
     font-size: 14px;
     color: var(--muted);
-    font-weight: 500;
+    font-weight: bold;
 }
 
 .stat-value {
