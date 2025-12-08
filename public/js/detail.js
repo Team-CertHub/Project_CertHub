@@ -107,7 +107,7 @@ function buildDetailContent(html, jmcd, certName = "") {
 
     actions.appendChild(bookmarkBtn);
 
-
+    wrapper.appendChild(actions);
     return wrapper;
 }
 
