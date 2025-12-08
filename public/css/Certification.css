@@ -115,3 +115,22 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* =================================================
+    -- 홈 버튼
+================================================= */
+.btn.home-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    margin-bottom: 16px;
+    background-color: #3757ff; /* 기본 버튼 색상 */
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+.btn.home-btn:hover {
+    background-color: #2747f2; /* 마우스 올렸을 때 색상 */
+}
