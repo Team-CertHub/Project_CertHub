@@ -442,15 +442,15 @@ a:hover {
 }
 
 .modal-content {
-  background: var(--panel); /* var(--panel) 변수 사용으로 테마 전환 대응 */
-  color: var(--fg); /* 텍스트 색상도 변수로 지정 */
+  background: var(--card);
+  color: var(--fg);
   padding: 20px;
   width: 480px;
   max-height: 80%;
   overflow-y: auto;
-  border-radius: var(--radius); /* border-radius 변수 사용 */
-  border: 1px solid var(--border); /* 테두리 추가 */
-  box-shadow: var(--shadow); /* 그림자 변수 사용 */
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
   position: relative;
 }
 

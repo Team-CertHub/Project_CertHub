@@ -52,7 +52,7 @@ export function renderListItem(item, container) {
     container.appendChild(div);
 
     div.querySelector(".detail-btn")
-        .addEventListener("click", () => loadDetailInfo(jmcd));
+        .addEventListener("click", () => loadDetailInfo(jmcd, jmfldnm));
 
     div.querySelector(".schedule-btn")
         .addEventListener("click", (e) => {

@@ -278,15 +278,18 @@ a:hover {
 }
 
 .modal-content {
-  background: #fff;
+  background: var(--card);
+  color: var(--fg);
   padding: 20px;
   width: 480px;
   max-height: 80%;
   overflow-y: auto;
   border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
   position: relative;
 }
+
 
 #modalCloseBtn {
   position: absolute;

@@ -153,14 +153,7 @@ async function initPage() {
     await loadFieldsBrowse(items);
 }
 
-
-
-// ===========================================
-// 🔹 모달 닫기
-// ===========================================
-document.getElementById("modalCloseBtn").addEventListener("click", closeModal);
-
-// 바깥 클릭 시 닫기
+// 모달 바깥 클릭 시 닫기
 document.getElementById("detailModal").addEventListener("click", (e) => {
     if (e.target.id === "detailModal") closeModal();
 });
