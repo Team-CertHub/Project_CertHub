@@ -975,3 +975,34 @@ a:hover {
     color: #111827;
     font-weight: 700;
 }
+
+
+/* ===============================
+   🌞 라이트 모드 색상 변수
+   =============================== */
+:root {
+    --bg-card: #ffffff;
+    --border-color: #e0e0e0;
+    --text-primary: #222;
+    --text-secondary: #555;
+    --accent-red: #d9534f;
+    --shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+/* ===============================
+   🌙 다크 모드 색상 (자동 적용)
+   =============================== */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-card: #1e1f22;
+        --border-color: #333;
+        --text-primary: #f0f0f0;
+        --text-secondary: #c7c7c7;
+        --accent-red: #ff7676;
+        --shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+
+    .schedule-card {
+        backdrop-filter: blur(8px);
+    }
+}
